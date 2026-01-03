@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-mono);
+  
+  /* Semantic Colors mapped to CSS variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-hacker-green: var(--hacker-green);
 }
 
-@media (prefers-color-scheme: dark) {
+/* 1. GLOBAL VARIABLES & RESET */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* --- LIGHT MODE (White Theme) --- */
+    --background: #ffffff;
+    --foreground: #09090b; /* Pitch Black Text */
+    
+    /* Cards */
+    --card: #f4f4f5;
+    --card-foreground: #09090b;
+ 
+    /* Borders & Inputs */
+    --border: #e4e4e7;
+    --input: #e4e4e7;
+    --ring: #09090b;
+
+    /* Hacker Green (Darker in light mode for readability) */
+    --hacker-green: #00cc33; 
+  }
+ 
+  .dark {
+    /* --- DARK MODE (Hacker Theme) --- */
+    --background: #000000;
+    --foreground: #ededed; /* Soft White Text */
+ 
+    /* Cards */
+    --card: #0a0a0a;
+    --card-foreground: #ededed;
+ 
+    /* Borders & Inputs */
+    --border: #27272a;
+    --input: #27272a;
+    --ring: #d4d4d8;
+
+    /* The Classic Neon Green */
+    --hacker-green: #00ff41;
+  }
+
+  /* Global Body Styles */
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+
+  /* Force Pointer Cursor on interactables */
+  button, a, [role="button"] { 
+    cursor: pointer !important; 
+  }
+
+  /* --- TEXT SELECTION (The Fix) --- */
+  ::selection {
+    background-color: var(--hacker-green);
+    color: #000000; /* Always Black text for high contrast on green */
+  }
+  
+  ::-moz-selection {
+    background-color: var(--hacker-green);
+    color: #000000;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 2. CUSTOM UTILITIES */
+@layer utilities {
+  .glass-panel {
+    @apply bg-background/50 backdrop-blur-md border border-border;
+  }
+  
+  /* Custom Animations not in standard Tailwind */
+  .animate-gradient {
+    background-size: 200% auto;
+    animation: gradient-x 4s linear infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* 3. KEYFRAMES */
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes progress-loading {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+.animate-progress {
+  animation: progress-loading 1.2s ease-in-out infinite;
 }
