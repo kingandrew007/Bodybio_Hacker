@@ -190,6 +190,7 @@ export const PREWORKOUT_BLOG_CONTENT = [
   {
     type: "custom_product_card",
     rank: 1,
+    price: 2499,
     name: "Gayor Essentials 3.0",
     description:
       "Gayor Essentials 3.0 is a complete, well-rounded, and powerful pre-workout with large serving size and clinically dosed ingredients, delivering strong performance without harsh crashes.",
@@ -217,6 +218,7 @@ export const PREWORKOUT_BLOG_CONTENT = [
   {
     type: "custom_product_card",
     rank: 2,
+    price: 1899,
     name: "Gayor Essentials 2.0",
     description:
       "Gayor Essentials 2.0 focuses more on pumps and sustained workout performance, making it easier to tolerate while still delivering solid results.",
@@ -243,6 +245,7 @@ export const PREWORKOUT_BLOG_CONTENT = [
   {
     type: "custom_product_card",
     rank: 3,
+    price: 2300,
     name: "GAT Nitraflex",
     description:
       "GAT Nitraflex is a high-stimulant pre-workout built for aggression, intensity, and raw power, ideal for heavy training days.",
@@ -269,6 +272,7 @@ export const PREWORKOUT_BLOG_CONTENT = [
   {
     type: "custom_product_card",
     rank: 4,
+    price: 1999,
     name: "Hyde Extreme",
     description:
       "Hyde Extreme is an ultra-high stimulant pre-workout delivering explosive energy and intense focus, strictly for stimulant-tolerant users.",
@@ -295,6 +299,7 @@ export const PREWORKOUT_BLOG_CONTENT = [
   {
     type: "custom_product_card",
     rank: 5,
+    price: 1499,
     name: "Blackbeast Big Daddy Inferno",
     description:
       "Blackbeast Big Daddy Inferno combines strong stimulants with added creatine, making it ideal for strength-focused athletes.",

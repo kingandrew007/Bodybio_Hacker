@@ -131,7 +131,7 @@ export function BlogContent({ post }: { post: any }) {
                        </div>
                        <div className="flex flex-col items-end gap-2">
                           <div className="text-2xl font-bold font-mono text-foreground">
-                            ₹{block.price.toLocaleString('en-IN')}
+                            {block.price ? `₹${block.price.toLocaleString('en-IN')}` : 'Check Price'}
                           </div>
                           <a href={block.link} target="_blank" rel="noopener noreferrer">
                              <Button className="bg-hacker-green text-black hover:bg-white font-bold transition-all shadow-lg hover:shadow-hacker-green/20">

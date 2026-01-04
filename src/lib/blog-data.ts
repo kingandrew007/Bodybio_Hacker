@@ -40,6 +40,7 @@ export const BLOG_POSTS = [
       {
         type: "custom_product_card",
         rank: 1,
+        price: 2549,
         name: "MuscleBlaze Whey Protein",
         description: "MuscleBlaze is arguably India’s most popular and trusted whey brand. Known for clean formulations and effective results, it’s a favorite among beginners and pros alike.",
         images: ["/images/blog/whey/MuscleBlaze.png", "/images/blog/whey/MuscleBlaze2.png"],
@@ -57,6 +58,7 @@ export const BLOG_POSTS = [
       {
         type: "custom_product_card",
         rank: 2,
+        price: 3099,
         name: "Avatar Nutrition Whey",
         description: "Avatar Nutrition has made a name for itself with premium quality whey options that are rich in essential amino acids. If you’re looking for a no-nonsense protein that supports recovery and growth, this is a solid pick.",
         images: ["/images/blog/whey/Avatar_Nutrition.png", "/images/blog/whey/Avatar_Nutrition2.png"],
@@ -73,6 +75,7 @@ export const BLOG_POSTS = [
       {
         type: "custom_product_card",
         rank: 3,
+        price: 2690,
         name: "Naturaltein Whey Protein",
         description: "Naturaltein has quickly gained traction thanks to its balanced macros and natural ingredient focus. It’s a good choice if you want a clean whey with minimal fillers.",
         images: ["/images/blog/whey/Naturaltein.png", "/images/blog/whey/Naturaltein2.png"],
@@ -89,6 +92,7 @@ export const BLOG_POSTS = [
       {
         type: "custom_product_card",
         rank: 4,
+        price: 1199,
         name: "Nakpro Whey Protein",
         description: "Nakpro stands out with excellent taste profiles and consistent quality. It’s especially popular among people who struggle with chalky or bitter protein powders.",
         images: ["/images/blog/whey/Nakpro.png", "/images/blog/whey/Nakpro2.png"],
@@ -105,6 +109,7 @@ export const BLOG_POSTS = [
       {
         type: "custom_product_card",
         rank: 5,
+        price: 1999,
         name: "Atom Whey Protein",
         description: "Atom Whey combines solid protein content with great pricing, making it a bang-for-buck option. Great for anyone who wants quality without stretching the budget.",
         images: ["/images/blog/whey/Atom_Whey2.png","/images/blog/whey/Atom_Whey.png" ],
