@@ -108,13 +108,13 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
               )}
             </div>
           ) : (
-            // MODE B: CHIPS (For few categories)
-            <div className="flex flex-wrap gap-2 mr-2">
+            // MODE B: MOBILE RAIL (Horizontal Scroll)
+            <div className="flex overflow-x-auto w-full md:w-auto pb-2 md:pb-0 gap-3 no-scrollbar snap-x snap-mandatory">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => updateFilter({ category: cat, brand: null })} // Clear brand on cat switch
-                  className={`px-3 py-1.5 rounded-md text-xs font-mono uppercase tracking-wider transition-all border
+                  onClick={() => updateFilter({ category: cat, brand: null })} 
+                  className={`snap-start shrink-0 px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all border whitespace-nowrap
                     ${currentCategory === cat 
                       ? "bg-hacker-green text-black border-hacker-green font-bold shadow-[0_0_10px_rgba(0,255,65,0.3)]" 
                       : "bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground"
@@ -124,6 +124,7 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
                 </button>
               ))}
             </div>
+            /* End Mode B */
           )}
 
           <div className="h-6 w-px bg-border mx-2 hidden md:block" />

@@ -12,8 +12,10 @@ import { PRODUCTS } from "@/lib/static-data";
 // 1. TRENDING / TOP RATED INTEL
 // ------------------------------------------------------------------
 export function TrendingProducts() {
-  // Show Top 4 products for better density
-  const topProducts = PRODUCTS.slice(0, 4);
+  // Desktop: Show Top 4
+  const topProductsDesktop = PRODUCTS.slice(0, 4);
+  // Mobile: Show Top 3 only (User request)
+  const topProductsMobile = PRODUCTS.slice(0, 3);
 
   return (
     <section className="trending-section py-16 px-6 max-w-7xl mx-auto">
@@ -27,8 +29,25 @@ export function TrendingProducts() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-         {topProducts.map((product) => (
+      {/* MOBILE: Horizontal Scroll (Snap) */}
+      <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-6 px-6 no-scrollbar">
+         {topProductsMobile.map((product) => (
+           <div key={product._id} className="snap-center shrink-0 w-[85vw] h-full">
+             <TrendingCard 
+               name={product.name} 
+               category={product.category.toUpperCase()} 
+               score={product.ratings.overall} 
+               price={product.pricing.current_price.toLocaleString()}
+               image={product.images.thumbnail}
+               slug={product.slug}
+             />
+           </div>
+         ))}
+      </div>
+
+      {/* DESKTOP: Grid System */}
+      <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+         {topProductsDesktop.map((product) => (
            <TrendingCard 
              key={product._id}
              name={product.name} 
