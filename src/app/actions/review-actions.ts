@@ -1,7 +1,7 @@
 "use server";
 
-import { connectDB } from "@/lib/db";
-import { Review, Product } from "@/lib/models";
+// import { connectDB } from "@/lib/db";
+// import { Review, Product } from "@/lib/models";
 import { revalidatePath } from "next/cache";
 
 export async function submitReview(productId: string, formData: FormData) {
@@ -20,10 +20,11 @@ export async function submitReview(productId: string, formData: FormData) {
     return { success: false, message: "RATING_REQUIRED" };
   }
 
-  await connectDB();
+  // await connectDB();
 
   try {
     // 2. Create the Review
+    /*
     await Review.create({
       productId,
       userId: rawData.userId,
@@ -32,14 +33,16 @@ export async function submitReview(productId: string, formData: FormData) {
       comment: rawData.comment,
       isVerifiedPurchase: true // Mocking this as true
     });
+    */
 
     // 3. OPTIONAL: Recalculate Product Average Score
     // (In a real app, you'd do this to keep the product score updated)
     
     // 4. Revalidate cache so the new review appears instantly
-    revalidatePath(`/reviews`);
+    // revalidatePath(`/reviews`);
     
-    return { success: true, message: "REVIEW_LOGGED_SUCCESSFULLY" };
+    console.log("Mock Review Submitted:", rawData);
+    return { success: true, message: "REVIEW_LOGGED_SUCCESSFULLY (STATIC MODE)" };
   } catch (error) {
     console.error(error);
     return { success: false, message: "DATABASE_WRITE_ERROR" };

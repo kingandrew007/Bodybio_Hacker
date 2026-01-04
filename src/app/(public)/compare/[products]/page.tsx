@@ -22,7 +22,7 @@ export default async function ComparePage({ params }: PageProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pt-24">
       <Link href="/">
         <Button variant="ghost" className="mb-8">
           <ArrowLeft className="w-4 h-4 mr-2" />

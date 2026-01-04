@@ -9,7 +9,7 @@ export const PRODUCTS = [
     pricing: { current_price: 2899, mrp: 3699 },
     ratings: { overall: 9.4 },
     images: { thumbnail: "/images/blog/whey/MuscleBlaze.png" }, // Using blog image
-    specs: { activeIngredientAmount: 25, servingSize: 36, form: "Powder" },
+    specs: { activeIngredientAmount: 25, servingSize: 36, form: "Powder", totalServings: 55 },
     
     extended_specs: {
       bcaa: "5.51g",
@@ -34,7 +34,7 @@ export const PRODUCTS = [
     pricing: { current_price: 2499, mrp: 3200 },
     ratings: { overall: 9.1 },
     images: { thumbnail: "/images/blog/whey/Avatar_Nutrition.png" },
-    specs: { activeIngredientAmount: 24, servingSize: 35, form: "Powder" },
+    specs: { activeIngredientAmount: 24, servingSize: 35, form: "Powder", totalServings: 57 },
     
     extended_specs: {
       bcaa: "5.4g",
@@ -59,7 +59,7 @@ export const PRODUCTS = [
     pricing: { current_price: 3100, mrp: 3999 },
     ratings: { overall: 9.6 }, // Cleanest
     images: { thumbnail: "/images/blog/whey/Naturaltein.png" },
-    specs: { activeIngredientAmount: 26, servingSize: 30, form: "Powder" },
+    specs: { activeIngredientAmount: 26, servingSize: 30, form: "Powder", totalServings: 33 },
     
     extended_specs: {
       bcaa: "6.2g",
@@ -84,7 +84,7 @@ export const PRODUCTS = [
     pricing: { current_price: 1899, mrp: 2500 },
     ratings: { overall: 8.7 },
     images: { thumbnail: "/images/blog/whey/Nakpro.png" },
-    specs: { activeIngredientAmount: 24, servingSize: 33, form: "Powder" },
+    specs: { activeIngredientAmount: 24, servingSize: 33, form: "Powder", totalServings: 60 },
     
     extended_specs: {
       bcaa: "5.2g",
@@ -109,7 +109,7 @@ export const PRODUCTS = [
     pricing: { current_price: 1799, mrp: 2299 },
     ratings: { overall: 8.5 },
     images: { thumbnail: "/images/blog/whey/Atom_Whey.png" },
-    specs: { activeIngredientAmount: 24, servingSize: 34, form: "Powder" },
+    specs: { activeIngredientAmount: 24, servingSize: 34, form: "Powder", totalServings: 58 },
     
     extended_specs: {
       bcaa: "5.1g",

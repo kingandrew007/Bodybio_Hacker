@@ -28,7 +28,7 @@ export async function getShopProducts(searchParams: { [key: string]: string | un
   const sortBy = searchParams.sort || "newest";
 
   // 1. Filter Manual Data
-  let filtered = PRODUCTS.filter(p => {
+  const filtered = PRODUCTS.filter(p => {
     if (category === "all") return true;
     return p.category.toLowerCase() === category.toLowerCase();
   });

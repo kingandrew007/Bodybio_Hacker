@@ -7,24 +7,21 @@ import { SlidersHorizontal, ArrowUpDown, Star, Search } from "lucide-react";
 import { toast } from "sonner";
 import { TestTube } from "lucide-react";
 // Mock Data (Replace with DB data later)
-const MOCK_PRODUCTS = [
-  { id: 1, name: "MuscleBlaze Biozyme", category: "Whey", price: 2899, rating: 9.1, image: "/images/placeholder.webp" },
-  { id: 2, name: "Nordic Naturals Ultimate", category: "Omega 3", price: 3500, rating: 9.5, image: "/images/placeholder.webp" },
-  { id: 3, name: "Optimum Nutrition Gold", category: "Whey", price: 3200, rating: 8.8, image: "/images/placeholder.webp" },
-  { id: 4, name: "Wow Life Science", category: "Omega 3", price: 899, rating: 6.2, image: "/images/placeholder.webp" },
-];
+import { PRODUCTS } from "@/lib/static-data";
+// Mock Data (Replace with DB data later)
+// const MOCK_PRODUCTS = [ ...replaced... ];
 
 export default function ExplorePage() {
   const [sortBy, setSortBy] = useState("recommended");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   // Filtering Logic
-  const filteredProducts = MOCK_PRODUCTS
+  const filteredProducts = PRODUCTS
     .filter(p => selectedCategory === "All" || p.category === selectedCategory)
     .sort((a, b) => {
-      if (sortBy === "price_low") return a.price - b.price;
-      if (sortBy === "price_high") return b.price - a.price;
-      if (sortBy === "rating") return b.rating - a.rating;
+      if (sortBy === "price_low") return a.pricing.current_price - b.pricing.current_price;
+      if (sortBy === "price_high") return b.pricing.current_price - a.pricing.current_price;
+      if (sortBy === "rating") return b.ratings.overall - a.ratings.overall;
       return 0;
     });
 
@@ -93,18 +90,18 @@ export default function ExplorePage() {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
-            <div key={product.id} className="group relative border border-border bg-card rounded-xl overflow-hidden hover:border-hacker-green/50 transition-all duration-300">
+            <div key={product._id} className="group relative border border-border bg-card rounded-xl overflow-hidden hover:border-hacker-green/50 transition-all duration-300">
               
               {/* Image Area */}
               <div className="aspect-square bg-white flex items-center justify-center p-6 relative">
                  <div className="absolute top-3 right-3 z-10 bg-black/80 text-white text-xs font-mono px-2 py-1 rounded border border-white/20 flex items-center gap-1">
                    <Star className="w-3 h-3 text-hacker-green fill-hacker-green" />
-                   {product.rating}
+                   {product.ratings.overall}
                  </div>
                  {/* Placeholder Image Logic */}
                  <div className="w-32 h-32 bg-gray-200 rounded-full blur-xl absolute" />
                  <Image 
-                   src={product.image} // Ensure you have a placeholder image here
+                   src={product.images.thumbnail} // Ensure you have a placeholder image here
                    alt={product.name}
                    width={200}
                    height={200}
@@ -117,7 +114,7 @@ export default function ExplorePage() {
                 <div className="text-xs font-mono text-hacker-green mb-1">{product.category}</div>
                 <h3 className="font-bold text-lg leading-tight mb-2 text-foreground">{product.name}</h3>
                 <div className="flex items-center justify-between mt-4">
-                  <span className="text-xl font-bold text-foreground">₹{product.price}</span>
+                  <span className="text-xl font-bold text-foreground">₹{product.pricing.current_price}</span>
                  <Button 
   size="sm" 
   variant="outline" 

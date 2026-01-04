@@ -1,38 +1,7 @@
-import mongoose from 'mongoose';
+// DATABASE DISABLED FOR STATIC V1 DEPLOYMENT
+// import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env');
-}
-
-// Global cache to prevent multiple connections in Dev mode (Hot Reloading fix)
-let cached = (global as any).mongoose;
-
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
-}
-
-// 👇 CHANGE: export directly here, do NOT use 'export default'
 export async function connectDB() {
-  if (cached.conn) return cached.conn;
-
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
-  }
-  
-  try {
-    cached.conn = await cached.promise;
-  } catch (e) {
-    cached.promise = null;
-    throw e;
-  }
-
-  return cached.conn;
+  console.warn("DATABASE CONNECTION ATTEMPTED BUT DISABLED (STATIC MODE)");
+  return null;
 }
