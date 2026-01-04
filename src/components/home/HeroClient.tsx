@@ -2,25 +2,14 @@
 
 import { useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { 
-  ArrowRight, ShieldCheck, Zap, Microscope, 
-  Database, Activity, Lock, ScanLine, Star,
-  Terminal, ChevronDown, MessageSquare
-} from "lucide-react";
-import Image from "next/image";
-// 1. IMPORT PRODUCTS DATA
-import { PRODUCTS } from "@/lib/static-data";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ArrowRight, ChevronDown, Terminal } from "lucide-react";
 
 export function HeroClient() {
   const container = useRef<HTMLDivElement>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
+  
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
@@ -31,49 +20,10 @@ export function HeroClient() {
       .from(".hero-sub", { opacity: 0, y: 20, duration: 0.8 }, "-=0.5")
       .from(".hero-btn", { scale: 0.9, opacity: 0, duration: 0.5 }, "-=0.3");
 
-    // 2. SCROLL ANIMATIONS
-    gsap.from(".pillar-card", {
-      y: 100, opacity: 0, rotateX: -15, stagger: 0.1, duration: 1,
-      scrollTrigger: { trigger: ".pillars-section", start: "top 75%" }
-    });
-
-    gsap.from(".product-card-anim", {
-      x: 100, opacity: 0, stagger: 0.1, duration: 0.8,
-      scrollTrigger: { trigger: ".trending-section", start: "top 70%" }
-    });
-    
-    gsap.from(".testimonial-card", {
-      y: 50, opacity: 0, stagger: 0.1, duration: 0.8,
-      scrollTrigger: { trigger: ".testimonials-section", start: "top 75%" }
-    });
-
   }, { scope: container });
 
-  // 3D Tilt Logic
-  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    gsap.to(card, { 
-      rotateX: ((y - centerY) / centerY) * -5, 
-      rotateY: ((x - centerX) / centerX) * 5, 
-      scale: 1.02, 
-      duration: 0.3, 
-      ease: "power2.out", 
-      transformPerspective: 1000 
-    });
-  };
-
-  const resetTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    gsap.to(e.currentTarget, { rotateX: 0, rotateY: 0, scale: 1, duration: 0.5 });
-  };
-
   return (
-    <div ref={container} className="min-h-screen bg-background text-foreground overflow-x-hidden relative transition-colors duration-300">
+    <div ref={container} className="relative transition-colors duration-300">
       
       {/* 0. BOOT LOADER */}
       <div className="boot-screen fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center text-hacker-green font-mono">
@@ -132,165 +82,40 @@ export function HeroClient() {
            <span>// VERIFIED: 99% PURITY ON CREATINE_MONOHYDRATE</span>
         </div>
       </div>
-
-      {/* 3. TRENDING PRODUCTS (AUTOMATED) */}
-      <section className="trending-section py-20 px-6 max-w-7xl mx-auto">
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <h2 className="text-3xl font-bold font-mono">TOP_RATED_INTEL</h2>
-            <p className="text-muted-foreground mt-2">Latest verified uploads to the database.</p>
-          </div>
-          <Link href="/shop" className="text-hacker-green text-xs font-mono border-b border-hacker-green pb-1 hover:opacity-80">VIEW_FULL_DATABASE</Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-           {/* 2. AUTOMATICALLY MAP TOP 3 PRODUCTS */}
-           {PRODUCTS.slice(0, 3).map((product) => (
-             <TrendingCard 
-               key={product._id}
-               name={product.name} 
-               category={product.category.toUpperCase()} 
-               score={product.ratings.overall} 
-               price={product.pricing.current_price.toLocaleString()}
-               image={product.images.thumbnail}
-               slug={product.slug}
-             />
-           ))}
-        </div>
-      </section>
-
-      {/* 4. PILLARS */}
-      <section className="pillars-section py-20 px-6 relative z-10 bg-card/30 border-y border-border backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16 text-center">
-            <h2 className="text-4xl font-bold font-mono mb-4">THE INFRASTRUCTURE</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <PillarCard icon={Microscope} title="RADICAL TRANSPARENCY" desc="We upload raw PDF lab reports. No editing, no mercy." onMouseMove={handleTilt} onMouseLeave={resetTilt} />
-            <PillarCard icon={Database} title="DATA SOVEREIGNTY" desc="Our database is immutable. Results cannot be deleted by bribes." onMouseMove={handleTilt} onMouseLeave={resetTilt} />
-            <PillarCard icon={ScanLine} title="PRECISION ANALYTICS" desc="Scored on heavy metal PPM, oxidation, and bioavailability." onMouseMove={handleTilt} onMouseLeave={resetTilt} />
-            <PillarCard icon={Lock} title="ZERO BIAS" desc="We do not accept free samples. We buy anonymously from retail." onMouseMove={handleTilt} onMouseLeave={resetTilt} />
-          </div>
-        </div>
-      </section>
-
-      {/* 5. TESTIMONIALS */}
-      <section className="testimonials-section py-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold font-mono mb-12 text-center">FIELD_REPORTS</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-           <TestimonialCard 
-             user="Agent_Sarah" 
-             msg="The heavy metal data on Fish Oils saved me. I was taking a brand that was basically lead soup. Switched immediately." 
-           />
-           <TestimonialCard 
-             user="Operative_Mike" 
-             msg="Finally, a site that doesn't just read the label back to me. The amino spiking detection tool is a game changer." 
-           />
-           <TestimonialCard 
-             user="Biohacker_X" 
-             msg="Clean UI, cleaner data. The cost-per-gram analysis exposed how much I was overpaying for marketing." 
-           />
-        </div>
-      </section>
-
-      {/* 6. FAQ DEBRIEFING */}
-      <section className="py-20 px-6 max-w-3xl mx-auto">
-        <h2 className="text-3xl font-bold font-mono mb-8 flex items-center gap-3">
-          <Terminal className="text-hacker-green" /> MISSION_DEBRIEF (FAQ)
-        </h2>
-        <div className="space-y-4">
-           <FaqItem 
-             q="Do brands pay you for these reviews?" 
-             a="Negative. We purchase every product anonymously. Accepting payment would compromise the protocol." 
-             isOpen={openFaq === 0} toggle={() => setOpenFaq(openFaq === 0 ? null : 0)}
-           />
-           <FaqItem 
-             q="How do you test for purity?" 
-             a="We utilize HPLC (High-Performance Liquid Chromatography) for ingredient verification and ICP-MS for heavy metal detection." 
-             isOpen={openFaq === 1} toggle={() => setOpenFaq(openFaq === 1 ? null : 1)}
-           />
-           <FaqItem 
-             q="Can I request a product analysis?" 
-             a="Affirmative. Members can submit requests in the 'Explore' tab. High-demand items are prioritized for the next lab run." 
-             isOpen={openFaq === 2} toggle={() => setOpenFaq(openFaq === 2 ? null : 2)}
-           />
-        </div>
-      </section>
-
-      {/* 7. FINAL CTA */}
-      <section className="py-20 bg-hacker-green text-black text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
-        <div className="relative z-10 px-6">
-           <h2 className="text-5xl md:text-7xl font-bold font-mono tracking-tighter mb-6">INITIATE PROTOCOL</h2>
-           <p className="text-xl font-medium mb-8 max-w-2xl mx-auto">
-             Stop guessing what you put in your body. Access the verified database now.
-           </p>
-           <Link href="/shop">
-             <Button className="bg-black text-white hover:bg-gray-900 border-none h-16 px-12 text-xl font-bold">
-               ENTER SHOP
-             </Button>
-           </Link>
-        </div>
-      </section>
-
     </div>
   );
 }
 
-// ------------------------------------
-// SUB-COMPONENTS
-// ------------------------------------
+// ------------------------------------------
+// FAQ COMPONENT (Client Logic Needed for State)
+// ------------------------------------------
+export function FaqSection() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-// 3. UPDATED TRENDING CARD TO BE A LINK
-function TrendingCard({ name, category, score, price, image, slug }: any) {
   return (
-    <Link href={`/reviews/${category.toLowerCase()}/${slug}`} className="block h-full">
-      <div className="product-card-anim group relative p-4 rounded-xl bg-card border border-border hover:border-hacker-green transition-all h-full flex flex-col">
-        <div className="aspect-square bg-background rounded-lg mb-4 flex items-center justify-center relative overflow-hidden">
-           {/* Fallback image logic */}
-           <div className="absolute inset-0 bg-gradient-to-tr from-hacker-green/5 to-transparent" />
-           <Image src={image} alt={name} width={200} height={200} className="object-contain p-4 group-hover:scale-110 transition-transform duration-500" />
-           <div className="absolute top-2 right-2 bg-black text-hacker-green text-xs font-mono px-2 py-1 rounded border border-hacker-green/30">
-             {score}/10
-           </div>
-        </div>
-        <div className="text-xs font-mono text-muted-foreground mb-1">{category}</div>
-        <h3 className="font-bold text-foreground text-lg leading-tight mb-3 flex-1">{name}</h3>
-        <div className="flex items-center justify-between border-t border-border pt-3 mt-auto">
-          <span className="font-mono text-foreground font-bold">₹{price}</span>
-          <Button size="sm" variant="ghost" className="h-8 text-xs hover:bg-hacker-green hover:text-black">view_data</Button>
-        </div>
+    <section className="py-20 px-6 max-w-3xl mx-auto">
+      <h2 className="text-3xl font-bold font-mono mb-8 flex items-center gap-3">
+        <Terminal className="text-hacker-green" /> MISSION_DEBRIEF (FAQ)
+      </h2>
+      <div className="space-y-4">
+         <FaqItem 
+           q="Do brands pay you for these reviews?" 
+           a="Negative. We purchase every product anonymously. Accepting payment would compromise the protocol." 
+           isOpen={openFaq === 0} toggle={() => setOpenFaq(openFaq === 0 ? null : 0)}
+         />
+         <FaqItem 
+           q="How do you test for purity?" 
+           a="We utilize HPLC (High-Performance Liquid Chromatography) for ingredient verification and ICP-MS for heavy metal detection." 
+           isOpen={openFaq === 1} toggle={() => setOpenFaq(openFaq === 1 ? null : 1)}
+         />
+         <FaqItem 
+           q="Can I request a product analysis?" 
+           a="Affirmative. Members can submit requests in the 'Explore' tab. High-demand items are prioritized for the next lab run." 
+           isOpen={openFaq === 2} toggle={() => setOpenFaq(openFaq === 2 ? null : 2)}
+         />
       </div>
-    </Link>
-  )
-}
-
-function PillarCard({ icon: Icon, title, desc, onMouseMove, onMouseLeave }: any) {
-  return (
-    <div className="pillar-card p-8 rounded-2xl bg-background border border-border hover:border-hacker-green/50 transition-colors h-full flex flex-col justify-between group" onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
-      <div>
-        <div className="w-12 h-12 rounded bg-card flex items-center justify-center mb-6 text-muted-foreground group-hover:text-hacker-green transition-colors">
-          <Icon className="w-6 h-6" />
-        </div>
-        <h3 className="text-lg font-bold font-mono mb-3 text-foreground">{title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
-      </div>
-    </div>
+    </section>
   );
-}
-
-function TestimonialCard({ user, msg }: any) {
-  return (
-    <div className="testimonial-card p-6 rounded-xl bg-card border border-border relative">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-8 h-8 rounded-full bg-hacker-green/20 flex items-center justify-center">
-          <MessageSquare className="w-4 h-4 text-hacker-green" />
-        </div>
-        <div className="text-sm font-bold font-mono text-foreground">{user}</div>
-      </div>
-      <p className="text-sm text-muted-foreground leading-relaxed">"{msg}"</p>
-    </div>
-  )
 }
 
 function FaqItem({ q, a, isOpen, toggle }: any) {
