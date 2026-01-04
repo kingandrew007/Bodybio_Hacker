@@ -61,7 +61,7 @@ function ProductCard({ product }: { product: any }) {
            <span className="text-foreground">{product.ratings?.overall}</span>
         </div>
 
-        <div className="relative w-full h-full transform group-hover:scale-110 transition-transform duration-500">
+        <Link href={`/reviews/${product.category}/${product.slug}`} className="relative w-full h-full transform group-hover:scale-110 transition-transform duration-500 block cursor-pointer">
            {product.images?.thumbnail ? (
              <Image 
                src={product.images.thumbnail} 
@@ -72,7 +72,7 @@ function ProductCard({ product }: { product: any }) {
            ) : (
              <div className="w-full h-full flex items-center justify-center text-muted-foreground font-mono text-xs">NO_IMG</div>
            )}
-        </div>
+        </Link>
       </div>
 
       <div className="p-6 flex-1 flex flex-col">

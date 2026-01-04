@@ -15,7 +15,7 @@ export const BLOG_POSTS = [
     title: "Top 5 Whey Protein Brands in India (2025)",
     category: "GUIDE",
     date: "2025-01-01",
-    image: "/images/blog/whey/whey-india-cover.webp",
+    image: "/images/blog/whey/Atom_Whey2.png",
     excerpt: "If you’re serious about fitness, choosing the right whey is a game changer. Here are the top 5 Indian brands delivering quality, taste, and results.",
     content: [
       {

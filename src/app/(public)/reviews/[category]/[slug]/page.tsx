@@ -37,25 +37,25 @@ export default async function ProductPage({ params }: Props) {
         <div className="grid md:grid-cols-2 gap-12 items-start">
           
           {/* LEFT: IMAGE (Holographic Card Look) */}
-          <div className="relative aspect-square rounded-2xl overflow-hidden bg-card border border-border flex items-center justify-center p-8 group">
+          <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-card to-background border border-border flex items-center justify-center p-12 group shadow-2xl">
              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-hacker-green/5 to-transparent opacity-50" />
+             <div className="absolute inset-0 bg-gradient-to-tr from-hacker-green/10 to-transparent opacity-60" />
              
              <Image 
                src={product.images.thumbnail} 
                alt={product.name}
-               width={500}
-               height={500}
-               className="object-contain z-10 hover:scale-105 transition-transform duration-500 ease-out"
+               width={600}
+               height={600}
+               className="object-contain z-10 hover:scale-110 transition-transform duration-700 ease-in-out drop-shadow-2xl"
                priority
              />
              
              {/* Score Badge */}
-             <div className="absolute top-6 right-6 flex flex-col items-end">
-               <div className="text-6xl font-mono font-bold text-hacker-green tracking-tighter drop-shadow-lg">
+             <div className="absolute top-6 right-6 flex flex-col items-center bg-background/90 backdrop-blur-xl border border-hacker-green/30 px-5 py-3 rounded-xl shadow-lg z-20">
+               <div className="text-5xl font-mono font-bold text-hacker-green tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,65,0.5)]">
                  {product.ratings.overall}
                </div>
-               <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest">Lab Score</div>
+               <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mt-1">Lab Score</div>
              </div>
           </div>
 
