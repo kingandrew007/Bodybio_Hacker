@@ -9,7 +9,7 @@ export const PREWORKOUT_SHOP_LIST = [
     pricing: { current_price: 2499, mrp: 3499 }, // Estimated from costPerServing ~70-140
     ratings: { overall: 9.5 },
     images: { thumbnail: "/images/blog/preworkout/Gayor3.0.jpg" },
-    specs: { activeIngredientAmount: 0, servingSize: 35, form: "Powder", totalServings: 25 }, // Derived from blog
+    specs: { activeIngredientAmount: 300, servingSize: 35, form: "Powder", totalServings: 25 }, // Caffeine: ~300mg
     extended_specs: {
       bcaa: "N/A",
       sweetener: "Check Label",
@@ -32,7 +32,7 @@ export const PREWORKOUT_SHOP_LIST = [
     pricing: { current_price: 1899, mrp: 2499 },
     ratings: { overall: 9.0 },
     images: { thumbnail: "/images/blog/preworkout/Gayor2.0.jpeg" },
-    specs: { activeIngredientAmount: 0, servingSize: 26, form: "Powder", totalServings: 30 },
+    specs: { activeIngredientAmount: 250, servingSize: 26, form: "Powder", totalServings: 30 }, // Caffeine: ~250mg
     extended_specs: {
       bcaa: "N/A",
       sweetener: "Check Label",
@@ -55,7 +55,7 @@ export const PREWORKOUT_SHOP_LIST = [
     pricing: { current_price: 2300, mrp: 3100 },
     ratings: { overall: 8.8 },
     images: { thumbnail: "/images/blog/preworkout/Nitraflex.jpg" },
-    specs: { activeIngredientAmount: 0, servingSize: 10, form: "Powder", totalServings: 30 },
+    specs: { activeIngredientAmount: 325, servingSize: 10, form: "Powder", totalServings: 30 }, // Caffeine: ~325mg
     extended_specs: {
       bcaa: "N/A",
       sweetener: "Sucralose",
@@ -78,7 +78,7 @@ export const PREWORKOUT_SHOP_LIST = [
     pricing: { current_price: 1999, mrp: 2799 },
     ratings: { overall: 8.5 },
     images: { thumbnail: "/images/blog/preworkout/HydeXtreme.jpg" },
-    specs: { activeIngredientAmount: 0, servingSize: 7, form: "Powder", totalServings: 30 },
+    specs: { activeIngredientAmount: 400, servingSize: 7, form: "Powder", totalServings: 30 }, // Caffeine: ~400mg
     extended_specs: {
       bcaa: "N/A",
       sweetener: "Sucralose",
@@ -101,7 +101,7 @@ export const PREWORKOUT_SHOP_LIST = [
     pricing: { current_price: 1499, mrp: 1999 },
     ratings: { overall: 8.2 },
     images: { thumbnail: "/images/blog/preworkout/Blackbeast.jpg" },
-    specs: { activeIngredientAmount: 0, servingSize: 12, form: "Powder", totalServings: 30 },
+    specs: { activeIngredientAmount: 300, servingSize: 12, form: "Powder", totalServings: 30 }, // Caffeine: ~300mg
     extended_specs: {
       bcaa: "N/A",
       sweetener: "Check Label",
@@ -116,40 +116,74 @@ export const PREWORKOUT_SHOP_LIST = [
 ];
 
 export const PREWORKOUT_BLOG_CONTENT = [
+  // 1. Education Section (New Data)
+  {
+    type: "heading",
+    level: 1,
+    content: "Top 5 Strongest Pre-Workout in India"
+  },
+  {
+    type: "heading",
+    level: 2,
+    content: "What Is Pre-Workout?"
+  },
   {
     type: "text",
     content:
       "Pre-workout supplements are nutritional formulas you take before exercise to boost performance, energy, focus, and endurance during training sessions. They typically contain a mix of caffeine, nitric-oxide boosters like citrulline, amino acids, and other performance-enhancing ingredients designed to help you train harder and longer."
   },
-
   {
-    type: "text",
-    content:
-      "Pre-workout supplements are not necessary for everyone. They are useful if you want more energy and focus during intense workouts, struggle with motivation or fatigue, or train early in the morning or after long days."
+    type: "heading",
+    level: 2,
+    content: "Is Pre-Workout Needed for Everyone?"
   },
-
   {
     type: "text",
     content:
-      "Benefits include enhanced energy and focus, better muscle pumps, improved endurance and strength, and stronger mental drive during workouts."
+      "Not necessarily. Pre-workout supplements are useful if you want more energy and focus during intense workouts, struggle with motivation or fatigue before training, or train early in the morning or after long days. However, they are not essential if you are already eating well, well-rested, and energized."
   },
-
   {
-    type: "text",
-    content:
-      "To avoid side effects like jitters, sleep issues, or digestive upset, start with half a scoop, avoid taking pre-workout after 2 PM, don’t stack with other caffeine sources, and stay well hydrated."
+    type: "heading",
+    level: 2,
+    content: "Benefits of Pre-Workout"
   },
-
   {
     type: "text",
-    content:
-      "Pre-workout supplements should be avoided by individuals under 18, pregnant or breastfeeding women, people with heart, blood pressure, anxiety, or thyroid conditions, or those sensitive to stimulants."
+    content: "Pre-workout supplements are popular because they provide:"
   },
-
+  {
+    type: "unordered_list",
+    items: [
+       "Enhanced energy and focus from caffeine and nootropics",
+       "Better muscle pumps and blood flow (Nitric Oxide)",
+       "Increased endurance and strength (Beta-Alanine)",
+       "Improved mental drive to stay locked in"
+    ]
+  },
+  {
+    type: "heading",
+    level: 2,
+    content: "Risks & Side Effects"
+  },
   {
     type: "text",
     content:
-      "Use pre-workout only on intense or PR days, never exceed the recommended dose, hydrate properly, avoid late-evening use, and pair it with a balanced meal before training."
+      "When used responsibly, pre-workouts are generally safe. However, excessive use may cause jitters and anxiety due to high caffeine intake, sleep disruption if taken late in the day, or digestive upset. To reduce these risks, start with half a scoop, avoid taking pre-workout after 2 PM, and drink plenty of water."
+  },
+  {
+    type: "heading",
+    level: 2,
+    content: "Who Shouldn’t Take Pre-Workout?"
+  },
+  {
+    type: "text",
+    content:
+      "Avoid using them if you are under 18, pregnant, have heart conditions, or are high anxiety/stimulant-sensitive. Always consult a healthcare professional if unsure."
+  },
+  {
+    type: "tip_box",
+    title: "Safety First - Best Practices",
+    content: "Use only on PR days or heavy sessions. Never exceed the recommended dose. Hydrate with 3–4 liters of water. Combine with a meal 60–90 mins before training."
   },
 
   // 🥇 1. Gayor Essentials 3.0

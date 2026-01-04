@@ -9,9 +9,16 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
+import { PRODUCTS } from "@/lib/static-data";
+
+// ... existing imports
+
 export default async function ShopPage({ searchParams }: Props) {
   const params = await searchParams;
   const products = await getShopProducts(params);
+  
+  // Extract Unique Brands for the Filter
+  const uniqueBrands = Array.from(new Set(PRODUCTS.map(p => p.brand))).sort();
 
   return (
     // FIX 1: Use 'bg-background' and 'text-foreground' instead of 'bg-black text-white'
@@ -27,7 +34,7 @@ export default async function ShopPage({ searchParams }: Props) {
           </p>
         </div>
 
-        <ShopToolbar />
+        <ShopToolbar brands={uniqueBrands} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product: any) => (
@@ -92,8 +99,13 @@ function ProductCard({ product }: { product: any }) {
              <span className="text-foreground text-lg font-bold">₹{product.pricing?.current_price}</span>
            </div>
            <div>
-             <span className="block uppercase opacity-70">Active</span>
-             <span className="text-foreground text-lg">{product.specs?.activeIngredientAmount}mg</span>
+             <span className="block uppercase opacity-70">
+               {product.category === 'pre-workout' ? 'Caffeine' : product.category === 'whey' ? 'Protein' : 'Active'}
+             </span>
+             <span className="text-foreground text-lg">
+               {product.specs?.activeIngredientAmount}
+               {product.category === 'pre-workout' ? 'mg' : 'g'}
+             </span>
            </div>
         </div>
 

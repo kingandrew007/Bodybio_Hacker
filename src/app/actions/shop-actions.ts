@@ -28,9 +28,26 @@ export async function getShopProducts(searchParams: { [key: string]: string | un
   const sortBy = searchParams.sort || "newest";
 
   // 1. Filter Manual Data
-  const filtered = PRODUCTS.filter(p => {
-    if (category === "all") return true;
-    return p.category.toLowerCase() === category.toLowerCase();
+  let filtered = PRODUCTS.filter(p => {
+    // 1. Category Filter
+    if (category !== "all" && p.category.toLowerCase() !== category.toLowerCase()) {
+      return false;
+    }
+
+    // 2. Brand Filter
+    const brandParam = searchParams.brand;
+    if (brandParam && p.brand.toLowerCase() !== brandParam.toLowerCase()) {
+      return false;
+    }
+
+    // 3. Price Filter
+    const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice) : 0;
+    const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice) : Infinity;
+    if (p.pricing.current_price < minPrice || p.pricing.current_price > maxPrice) {
+      return false;
+    }
+
+    return true;
   });
 
   // 2. Sort Manual Data

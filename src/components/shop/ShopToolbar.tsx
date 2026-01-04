@@ -17,7 +17,7 @@ const CATEGORIES = [
   "gear"
 ];
 
-export function ShopToolbar() {
+export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -26,6 +26,7 @@ export function ShopToolbar() {
   // URL Params State
   const currentSort = searchParams.get("sort") || "newest";
   const currentCategory = searchParams.get("category") || "all";
+  const currentBrand = searchParams.get("brand") || "";     // <--- NEW
   const currentMinPrice = searchParams.get("minPrice") || "";
   const currentMaxPrice = searchParams.get("maxPrice") || "";
   const currentRating = searchParams.get("rating") || "";
@@ -90,7 +91,11 @@ export function ShopToolbar() {
                   {CATEGORIES.map((cat) => (
                     <button
                       key={cat}
-                      onClick={() => updateFilter({ category: cat })}
+                      // When switching category, we might want to keep the brand or clear it. Usually clear it to avoid empty results.
+                      onClick={() => {
+                         // Optional: Clear brand when switching category if you want strict hierarchy, but keeping it flexible for now.
+                         updateFilter({ category: cat, brand: null }); 
+                      }}
                       className={`w-full text-left px-3 py-2 text-xs font-mono rounded flex items-center justify-between hover:bg-background transition-colors ${
                         currentCategory === cat ? "text-hacker-green bg-hacker-green/5 font-bold" : "text-muted-foreground"
                       }`}
@@ -108,7 +113,7 @@ export function ShopToolbar() {
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => updateFilter({ category: cat })}
+                  onClick={() => updateFilter({ category: cat, brand: null })} // Clear brand on cat switch
                   className={`px-3 py-1.5 rounded-md text-xs font-mono uppercase tracking-wider transition-all border
                     ${currentCategory === cat 
                       ? "bg-hacker-green text-black border-hacker-green font-bold shadow-[0_0_10px_rgba(0,255,65,0.3)]" 
@@ -123,7 +128,44 @@ export function ShopToolbar() {
 
           <div className="h-6 w-px bg-border mx-2 hidden md:block" />
 
-          {/* --- 2. PRICE FILTER --- */}
+          {/* --- 2. BRAND FILTER (NEW) --- */}
+          {/* User asked for this to appear "when we click on whey", but generally it's good UI to show if available. 
+              We can conditionally show it ONLY if category != 'all', but brands are global. 
+              Let's show it always but highlight it's the specific feature requested. */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenDropdown(openDropdown === "brand" ? null : "brand")}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-mono border transition-all ${
+                currentBrand
+                  ? "border-hacker-green text-hacker-green bg-hacker-green/10" 
+                  : "border-border text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {currentBrand ? currentBrand.toUpperCase() : "BRAND"} <ChevronDown className="w-3 h-3" />
+            </button>
+
+            {openDropdown === "brand" && (
+              <div className="absolute top-full left-0 mt-2 w-56 bg-card border border-border rounded-xl shadow-xl p-1 z-50 animate-in fade-in slide-in-from-top-2 max-h-60 overflow-y-auto custom-scrollbar">
+                {brands.length > 0 ? brands.map((brand) => (
+                  <button
+                    key={brand}
+                    onClick={() => updateFilter({ brand: brand })}
+                    className={`w-full text-left px-3 py-2 text-xs font-mono rounded flex items-center justify-between hover:bg-background transition-colors ${
+                      currentBrand === brand ? "text-hacker-green bg-hacker-green/5 font-bold" : "text-muted-foreground"
+                    }`}
+                  >
+                    {brand}
+                    {currentBrand === brand && <Check className="w-3 h-3" />}
+                  </button>
+                )) : (
+                  <div className="px-3 py-2 text-xs text-muted-foreground">No brands found.</div>
+                )}
+              </div>
+            )}
+          </div>
+
+
+          {/* --- 3. PRICE FILTER --- */}
           <div className="relative">
             <button
               onClick={() => setOpenDropdown(openDropdown === "price" ? null : "price")}
@@ -164,7 +206,7 @@ export function ShopToolbar() {
           </div>
 
           {/* --- 3. RESET BUTTON --- */}
-          {(currentCategory !== "all" || currentMinPrice || currentMaxPrice || currentRating) && (
+          {(currentCategory !== "all" || currentMinPrice || currentMaxPrice || currentRating || currentBrand) && (
              <button onClick={clearFilters} className="text-xs text-red-500 hover:underline flex items-center ml-2 font-mono">
                <X className="w-3 h-3 mr-1" /> RESET
              </button>
@@ -183,6 +225,7 @@ export function ShopToolbar() {
             <option value="rating">HIGHEST_RATED</option>
             <option value="price_low">PRICE: LOW_TO_HIGH</option>
             <option value="price_high">PRICE: HIGH_TO_LOW</option>
+            <option value="brand">BRAND (A-Z)</option>
           </select>
         </div>
       </div>
