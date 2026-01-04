@@ -1,9 +1,22 @@
 import { PREWORKOUT_BLOG_CONTENT } from "@/lib/preworkout-data";
+import { WHEY_BLOG_CONTENT } from "./whey-data";
 
 export const BLOG_POSTS = [
+  // 1. TOP 5 BUDGET WHEY (NEW)
+  {
+    slug: "top-5-budget-friendly-whey-protein-india-2025",
+    title: "Top 5 Budget-Friendly Whey Proteins in India (Lab-Tested & Value for Money)",
+    category: "GUIDE",
+    date: "2025-01-02",
+    image: "/images/blog/whey/Nakpro_impact.jpg",
+    excerpt: "If you want to meet your daily protein requirements and build muscle on a tight budget, these lab-tested whey proteins offer the best protein per rupee in India.",
+    content: WHEY_BLOG_CONTENT
+  },
+
+  // 2. PRE-WORKOUT GUIDE
   {
     slug: "top-5-strongest-preworkout-india-2025",
-    title: "Top 5 Strongest Pre-Workout Supplements in India (2025)",
+    title: "Top 5 Strongest Pre-Workout Supplements in India (2025 Ranked)",
     category: "GUIDE",
     date: "2025-01-01",
     image: "/images/blog/preworkout/Gayor3.0.jpg",

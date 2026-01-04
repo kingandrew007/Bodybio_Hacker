@@ -129,11 +129,16 @@ export function BlogContent({ post }: { post: any }) {
                             <span className="text-xs text-muted-foreground uppercase tracking-widest">Verified Selection</span>
                           </div>
                        </div>
-                       <a href={block.link} target="_blank" rel="noopener noreferrer">
-                         <Button className="bg-hacker-green text-black hover:bg-white font-bold transition-all shadow-lg hover:shadow-hacker-green/20">
-                           <ShoppingCart className="w-4 h-4 mr-2" /> Check Price
-                         </Button>
-                       </a>
+                       <div className="flex flex-col items-end gap-2">
+                          <div className="text-2xl font-bold font-mono text-foreground">
+                            ₹{block.price.toLocaleString('en-IN')}
+                          </div>
+                          <a href={block.link} target="_blank" rel="noopener noreferrer">
+                             <Button className="bg-hacker-green text-black hover:bg-white font-bold transition-all shadow-lg hover:shadow-hacker-green/20">
+                               <ShoppingCart className="w-4 h-4 mr-2" /> Check Price
+                             </Button>
+                          </a>
+                       </div>
                     </div>
 
                     {/* Images Grid with Lightbox */}
@@ -168,7 +173,7 @@ export function BlogContent({ post }: { post: any }) {
                           
                           <div className="mt-6 p-4 bg-background rounded-lg border border-border/50">
                             <span className="text-xs font-bold text-foreground block mb-1 uppercase">Best For:</span>
-                            <span className="text-sm text-hacker-green font-mono">{block.bestFor}</span>
+                            <span className="text-sm text-hacker-green font-mono">{block.bestFor || "General Use"}</span>
                           </div>
 
                           {block.extraInfo && (
@@ -179,12 +184,22 @@ export function BlogContent({ post }: { post: any }) {
                               </div>
                               <div className="p-2 rounded bg-background border border-border/50">
                                 <div className="text-[10px] text-muted-foreground uppercase mb-1">Cost</div>
-                                <div className="text-xs font-bold text-hacker-green">{block.extraInfo.costPerServing}</div>
+                                <div className="text-xs font-bold text-hacker-green">{block.extraInfo.costPerScoop || block.extraInfo.costPerServing}</div>
                               </div>
-                              <div className="p-2 rounded bg-background border border-border/50">
-                                <div className="text-[10px] text-muted-foreground uppercase mb-1">Stim</div>
-                                <div className="text-xs font-bold text-red-400">{block.extraInfo.stimLevel}</div>
-                              </div>
+                              
+                              {/* DYNAMIC SLOT: PROTEIN OR STIM */}
+                              {block.extraInfo.proteinPerScoop ? (
+                                <div className="p-2 rounded bg-background border border-border/50">
+                                  <div className="text-[10px] text-muted-foreground uppercase mb-1">Protein</div>
+                                  <div className="text-xs font-bold text-blue-400">{block.extraInfo.proteinPerScoop}</div>
+                                </div>
+                              ) : block.extraInfo.stimLevel ? (
+                                <div className="p-2 rounded bg-background border border-border/50">
+                                  <div className="text-[10px] text-muted-foreground uppercase mb-1">Stim</div>
+                                  <div className="text-xs font-bold text-red-400">{block.extraInfo.stimLevel}</div>
+                                </div>
+                              ) : null}
+                              
                             </div>
                           )}
                        </div>

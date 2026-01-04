@@ -1,8 +1,10 @@
-import { PREWORKOUT_SHOP_LIST } from "@/lib/preworkout-data";
+import { PREWORKOUT_SHOP_LIST } from "./preworkout-data";
+import { WHEY_SHOP_LIST } from "./whey-data";
 
 export const PRODUCTS = [
   ...PREWORKOUT_SHOP_LIST,
-  // 🥇 1. MuscleBlaze
+  ...WHEY_SHOP_LIST,
+  // Existing products below...eBlaze
   {
     _id: "101",
     name: "MuscleBlaze Biozyme Performance",

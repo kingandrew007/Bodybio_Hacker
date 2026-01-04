@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: 'Analytics-driven supplement reviews. We test for heavy metals, purity, and price efficiency.',
   openGraph: {
     title: 'BodyBio Hacker',
-    description: 'Stop Guessing. Start Hacking.',
+    description: 'Stop Guessing. Start Hacking Your Body.',
     images: ['/og-image.jpg'],
   },
 };

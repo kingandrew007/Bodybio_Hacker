@@ -96,7 +96,7 @@ function ProductCard({ product }: { product: any }) {
         <div className="grid grid-cols-2 gap-2 text-xs font-mono text-muted-foreground mb-6 border-t border-border pt-4">
            <div>
              <span className="block uppercase opacity-70">Price</span>
-             <span className="text-foreground text-lg font-bold">₹{product.pricing?.current_price}</span>
+             <span className="text-foreground text-lg font-bold">₹{product.pricing?.current_price?.toLocaleString('en-IN')}</span>
            </div>
            <div>
              <span className="block uppercase opacity-70">
