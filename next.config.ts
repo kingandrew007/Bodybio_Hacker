@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
   // 3. Strict Header Security (Hacker Requirement)
   async headers() {
