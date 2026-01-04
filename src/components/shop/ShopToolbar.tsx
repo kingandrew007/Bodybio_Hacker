@@ -2,7 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { ArrowUpDown, ChevronDown, Check, X } from "lucide-react";
+import { ArrowUpDown, ChevronDown, Check, X, Search } from "lucide-react";
+
+import { PRODUCTS } from "@/lib/static-data"; // <--- Import Products
 
 // DEFINED CATEGORIES (Add as many as you want here)
 const CATEGORIES = [
@@ -22,25 +24,70 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
   const searchParams = useSearchParams();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null); // New Ref for Search
 
   // URL Params State
   const currentSort = searchParams.get("sort") || "newest";
   const currentCategory = searchParams.get("category") || "all";
-  const currentBrand = searchParams.get("brand") || "";     // <--- NEW
+  const currentBrand = searchParams.get("brand") || "";
+  const currentSearch = searchParams.get("q") || ""; // <--- NEW SEARCH PARAM
   const currentMinPrice = searchParams.get("minPrice") || "";
   const currentMaxPrice = searchParams.get("maxPrice") || "";
   const currentRating = searchParams.get("rating") || "";
-
+  
   // Local State
-  const [priceRange, setPriceRange] = useState({ min: currentMinPrice, max: currentMaxPrice });
+  const [searchTerm, setSearchTerm] = useState(currentSearch);
+  const [priceRange, setPriceRange] = useState({ min: searchParams.get("minPrice") || "", max: searchParams.get("maxPrice") || "" });
+  
+  // SUGGESTIONS STATE
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Logic: Switch to Dropdown if > 4 Categories
+  // Debounce Search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchTerm !== currentSearch) {
+        updateFilter({ q: searchTerm });
+      }
+    }, 400); // 400ms debounce
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Handle Input Change & Suggestions
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    if (value.length > 1) {
+      const matches = PRODUCTS
+        .filter(p => p.name.toLowerCase().includes(value.toLowerCase()))
+        .slice(0, 5) // Top 5
+        .map(p => p.name);
+      setSuggestions(matches);
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (name: string) => {
+    setSearchTerm(name);
+    updateFilter({ q: name });
+    setShowSuggestions(false);
+  };
+
   const useCategoryDropdown = CATEGORIES.length > 4;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      // Close Filter Dropdowns
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setOpenDropdown(null);
+      }
+      // Close Suggestions
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -60,6 +107,7 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
   const clearFilters = () => {
     router.push("/shop");
     setPriceRange({ min: "", max: "" });
+    setSearchTerm("");
   };
 
   return (
@@ -214,20 +262,51 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
           )}
         </div>
 
-        {/* RIGHT: Sorter */}
-        <div className="flex items-center gap-3 w-full md:w-auto">
-          <ArrowUpDown className="w-4 h-4 text-muted-foreground" />
-          <select
-            value={currentSort}
-            onChange={(e) => updateFilter({ sort: e.target.value })}
-            className="bg-background border border-border rounded-lg px-3 py-1.5 text-xs text-foreground focus:outline-none focus:border-hacker-green font-mono w-full md:w-48 cursor-pointer"
-          >
-            <option value="newest">NEW_ARRIVALS</option>
-            <option value="rating">HIGHEST_RATED</option>
-            <option value="price_low">PRICE: LOW_TO_HIGH</option>
-            <option value="price_high">PRICE: HIGH_TO_LOW</option>
-            <option value="brand">BRAND (A-Z)</option>
-          </select>
+        {/* RIGHT: Search & Sorter */}
+        <div className="flex flex-col md:flex-row items-center gap-3 w-full md:w-auto">
+          
+          {/* SEARCH INPUT & SUGGESTIONS */}
+          <div className="relative w-full md:w-64" ref={searchContainerRef}>
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input 
+              type="text" 
+              placeholder="SEARCH_DB..." 
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onFocus={() => { if (searchTerm.length > 1) setShowSuggestions(true); }}
+              className="w-full bg-background border border-border rounded-lg pl-10 pr-4 py-1.5 text-xs text-foreground focus:outline-none focus:border-hacker-green font-mono placeholder:text-muted-foreground"
+            />
+            
+            {/* SUGGESTIONS DROPDOWN */}
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute top-full left-0 mt-2 w-full bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-1">
+                {suggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className="w-full text-left px-4 py-2 text-xs font-mono text-muted-foreground hover:bg-hacker-green/10 hover:text-hacker-green transition-colors border-b border-border last:border-0 truncate"
+                  >
+                     {suggestion}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <ArrowUpDown className="w-4 h-4 text-muted-foreground hidden md:block" />
+            <select
+              value={currentSort}
+              onChange={(e) => updateFilter({ sort: e.target.value })}
+              className="bg-background border border-border rounded-lg px-3 py-1.5 text-xs text-foreground focus:outline-none focus:border-hacker-green font-mono w-full md:w-48 cursor-pointer"
+            >
+              <option value="newest">NEW_ARRIVALS</option>
+              <option value="rating">HIGHEST_RATED</option>
+              <option value="price_low">PRICE: LOW_TO_HIGH</option>
+              <option value="price_high">PRICE: HIGH_TO_LOW</option>
+              <option value="brand">BRAND (A-Z)</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

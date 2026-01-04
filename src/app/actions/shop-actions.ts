@@ -40,10 +40,16 @@ export async function getShopProducts(searchParams: { [key: string]: string | un
       return false;
     }
 
-    // 3. Price Filter
+    // 4. Price Filter
     const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice) : 0;
     const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice) : Infinity;
     if (p.pricing.current_price < minPrice || p.pricing.current_price > maxPrice) {
+      return false;
+    }
+
+    // 5. Search Query (Name)
+    const query = searchParams.q;
+    if (query && !p.name.toLowerCase().includes(query.toLowerCase())) {
       return false;
     }
 

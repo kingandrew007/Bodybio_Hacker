@@ -4,6 +4,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Twitter, Instagram, Linkedin, ArrowRight, Activity } from "lucide-react";
 
+import { useState, useEffect } from "react";
+// ... imports
+
 export function Footer() {
   return (
     <footer className="bg-black border-t border-white/10 pt-20 pb-10 overflow-hidden relative">
@@ -26,8 +29,12 @@ export function Footer() {
               <SocialIcon icon={Instagram} />
               <SocialIcon icon={Linkedin} />
             </div>
+            {/* VISITOR COUNTER */}
+            <VisitorCounter />
           </div>
 
+          {/* ... other columns ... */}
+          
           {/* Column 2: Explore */}
           <div className="space-y-6">
             <h3 className="font-mono text-sm text-gray-500 uppercase tracking-widest">Database</h3>
@@ -41,15 +48,15 @@ export function Footer() {
 
           {/* Column 3: Company */}
          <div className="space-y-6">
-  <h3 className="font-mono text-sm text-gray-500 uppercase tracking-widest">Intel</h3>
-  <ul className="space-y-4 text-sm font-medium text-gray-300">
-    <FooterLink href="/about">Manifesto</FooterLink>
-    <FooterLink href="/methodology">Lab Methodology</FooterLink>
-    {/* <FooterLink href="/careers">Join the Team</FooterLink> */} 
-    {/* <FooterLink href="/contact">Encrypted Contact</FooterLink> */}
-    <li className="text-gray-600 cursor-not-allowed">Encrypted Contact (Offline)</li>
-  </ul>
-</div>
+          <h3 className="font-mono text-sm text-gray-500 uppercase tracking-widest">Intel</h3>
+          <ul className="space-y-4 text-sm font-medium text-gray-300">
+            <FooterLink href="/about">Manifesto</FooterLink>
+            <FooterLink href="/methodology">Lab Methodology</FooterLink>
+            {/* <FooterLink href="/careers">Join the Team</FooterLink> */} 
+            {/* <FooterLink href="/contact">Encrypted Contact</FooterLink> */}
+            <li className="text-gray-600 cursor-not-allowed">Encrypted Contact (Offline)</li>
+          </ul>
+        </div>
 
           {/* Column 4: Newsletter (Premium Interaction) */}
           <div className="space-y-6">
@@ -78,6 +85,52 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function VisitorCounter() {
+  const [liveCount, setLiveCount] = useState(142);
+  const [totalVisits, setTotalVisits] = useState(14205);
+
+  useEffect(() => {
+    // 1. Live fluctuation
+    const interval = setInterval(() => {
+      setLiveCount(prev => {
+        const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+        return Math.max(120, Math.min(180, prev + change));
+      });
+    }, 4000);
+
+    // 2. Incremental total (simulate local "ping")
+    const stored = localStorage.getItem("bbh_visits");
+    const initial = stored ? parseInt(stored) : 14205;
+    const newTotal = initial + 1;
+    setTotalVisits(newTotal);
+    localStorage.setItem("bbh_visits", newTotal.toString());
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-6 mt-4 p-3 bg-white/5 rounded border border-white/10 w-fit">
+      <div>
+        <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-0.5">Live Operatives</div>
+        <div className="text-xl font-mono font-bold text-hacker-green flex items-center gap-2">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-hacker-green opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-hacker-green"></span>
+          </span>
+          {liveCount}
+        </div>
+      </div>
+      <div className="w-px h-8 bg-white/10" />
+      <div>
+        <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-0.5">Total Access</div>
+        <div className="text-lg font-mono font-bold text-white">
+          {totalVisits.toLocaleString()}
+        </div>
+      </div>
+    </div>
   );
 }
 

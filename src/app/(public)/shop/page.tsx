@@ -23,7 +23,7 @@ export default async function ShopPage({ searchParams }: Props) {
   // Check if any filter is active (category, brand, price, rating)
   // Note: 'sort' doesn't count as a filter that hides sections, but let's say if user sorts, they probably want a list.
   // Actually, usually "Shop" landing page shows sections, but if I search/filter, I see grid.
-  const isFiltered = params.category || params.brand || params.minPrice || params.maxPrice || params.rating || (params.sort && params.sort !== 'newest');
+  const isFiltered = params.category || params.brand || params.minPrice || params.maxPrice || params.rating || params.q || (params.sort && params.sort !== 'newest');
 
   return (
     <div className="min-h-screen bg-background text-foreground pt-24 pb-20 px-4 md:px-6 transition-colors duration-300">
@@ -42,7 +42,10 @@ export default async function ShopPage({ searchParams }: Props) {
 
         {/* CONDITION: If Filtered -> Show Grid. If Default -> Show Sections */}
         {isFiltered ? (
-           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8">
+           <div 
+             key={JSON.stringify(params)} 
+             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8 animate-appear"
+           >
              {products.map((product: any) => (
                <ProductCard key={product._id} product={product} />
              ))}
