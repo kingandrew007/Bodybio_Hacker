@@ -101,7 +101,7 @@ export function HeroClient() {
              </div>
           </div>
 
-          <h1 className="text-6xl md:text-9xl font-bold tracking-tighter leading-[0.9] mb-8">
+          <h1 className="text-4xl md:text-9xl font-bold tracking-tighter leading-[0.9] mb-8">
             <div className="overflow-hidden"><span className="hero-word block">DECLASSIFYING</span></div>
             <div className="overflow-hidden"><span className="hero-word block text-transparent bg-clip-text bg-gradient-to-r from-hacker-green via-foreground to-hacker-green animate-gradient bg-[length:200%_auto]">THE INDUSTRY.</span></div>
           </h1>

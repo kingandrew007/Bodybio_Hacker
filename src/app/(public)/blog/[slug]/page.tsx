@@ -141,6 +141,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <span className="text-xs font-bold text-foreground block mb-1 uppercase">Best For:</span>
                             <span className="text-sm text-hacker-green font-mono">{block.bestFor}</span>
                           </div>
+
+                          {/* Extra Info Grid */}
+                          {block.extraInfo && (
+                            <div className="grid grid-cols-3 gap-2 mt-4 text-center">
+                              <div className="p-2 rounded bg-background border border-border/50">
+                                <div className="text-[10px] text-muted-foreground uppercase mb-1">Serving</div>
+                                <div className="text-xs font-bold">{block.extraInfo.servingSize}</div>
+                              </div>
+                              <div className="p-2 rounded bg-background border border-border/50">
+                                <div className="text-[10px] text-muted-foreground uppercase mb-1">Cost</div>
+                                <div className="text-xs font-bold text-hacker-green">{block.extraInfo.costPerServing}</div>
+                              </div>
+                              <div className="p-2 rounded bg-background border border-border/50">
+                                <div className="text-[10px] text-muted-foreground uppercase mb-1">Stim</div>
+                                <div className="text-xs font-bold text-red-400">{block.extraInfo.stimLevel}</div>
+                              </div>
+                            </div>
+                          )}
                        </div>
 
                        <div>

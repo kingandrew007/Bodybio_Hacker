@@ -1,4 +1,15 @@
+import { PREWORKOUT_BLOG_CONTENT } from "@/lib/preworkout-data";
+
 export const BLOG_POSTS = [
+  {
+    slug: "top-5-strongest-preworkout-india-2025",
+    title: "Top 5 Strongest Pre-Workout Supplements in India (2025)",
+    category: "GUIDE",
+    date: "2025-01-01",
+    image: "/images/blog/preworkout/Gayor3.0.jpg",
+    excerpt: "Pre-workout supplements can dramatically boost your energy, focus, and performance — but only if you choose the right one. Here are the Top 5 strongest pre-workouts available in India.",
+    content: PREWORKOUT_BLOG_CONTENT
+  },
   {
     slug: "top-5-whey-protein-india-2025",
     title: "Top 5 Whey Protein Brands in India (2025)",

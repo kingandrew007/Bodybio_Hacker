@@ -16,9 +16,7 @@ const nextConfig: NextConfig = {
     // remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com' }],
   },
 
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+
 
   typescript: {
     ignoreBuildErrors: true,
@@ -31,7 +29,7 @@ const nextConfig: NextConfig = {
         source: '/(.*)',
         headers: [
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
-          { key: 'X-Frame-Options', value: 'DENY' }, // No iframing allowed
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' }, // strict (no external iframes), but allows same-origin
         ],
       },
     ];

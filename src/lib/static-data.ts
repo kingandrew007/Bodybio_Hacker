@@ -1,4 +1,7 @@
+import { PREWORKOUT_SHOP_LIST } from "@/lib/preworkout-data";
+
 export const PRODUCTS = [
+  ...PREWORKOUT_SHOP_LIST,
   // 🥇 1. MuscleBlaze
   {
     _id: "101",
