@@ -1,7 +1,17 @@
 import { PREWORKOUT_BLOG_CONTENT } from "@/lib/preworkout-data";
 import { WHEY_BLOG_CONTENT } from "./whey-data";
+import { VITAMIN_D3_BLOG_CONTENT } from "./vitamin-data";
 
 export const BLOG_POSTS = [
+  {
+    slug: "vitamin-d3-complete-guide-india-2025",
+    title: "Vitamin D3: Complete Guide for Indians (2025)",
+    category: "GUIDE",
+    date: "2025-01-06",
+    image: "/images/blog/vitamins/vitamin-d3-cover.png",
+    excerpt: "Why most Indians are deficient in Vitamin D3, how much you need, and the best D3 supplements to choose.",
+    content: VITAMIN_D3_BLOG_CONTENT
+  },
   // 1. TOP 5 BUDGET WHEY (NEW)
   {
     slug: "top-5-budget-friendly-whey-protein-india-2025",

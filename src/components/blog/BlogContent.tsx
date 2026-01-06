@@ -1,17 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { ArrowLeft, ShoppingCart, Info, Check, X, Lightbulb, ZoomIn } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function BlogContent({ post }: { post: any }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+
+  useGSAP(() => {
+    // 1. Header Animations (Hero)
+    const tl = gsap.timeline();
+    tl.from(".gsap-header-item", {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power3.out"
+    });
+
+    // 2. Text Content & Headings (ScrollTrigger)
+    gsap.utils.toArray<HTMLElement>(".gsap-fade-up").forEach((el) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    });
+
+    // 3. Product Cards (Premium Reveal)
+    gsap.utils.toArray<HTMLElement>(".gsap-product-card").forEach((el) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+        },
+        scale: 0.95,
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.7)"
+      });
+    });
+
+     // 4. List Items
+    gsap.utils.toArray<HTMLElement>(".gsap-list").forEach((list) => {
+      gsap.from(list.children, {
+        scrollTrigger: {
+            trigger: list,
+            start: "top 85%"
+        },
+        x: -10,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "power2.out"
+      });
+    });
+
+  }, { scope: containerRef });
 
   // ... (Paste the entire logic I wrote previously for BlogContent here)
   return (
-    <div className="min-h-screen bg-background text-foreground pt-32 pb-20 px-6 transition-colors duration-300">
+    <div ref={containerRef} className="min-h-screen bg-background text-foreground pt-32 pb-20 px-6 transition-colors duration-300">
       
       {/* Lightbox Overlay */}
       {lightboxImg && (
@@ -36,18 +99,18 @@ export function BlogContent({ post }: { post: any }) {
         
         {/* Article Header */}
         <div className="mb-12 border-b border-border pb-8">
-           <div className="flex items-center gap-3 mb-4">
+           <div className="flex items-center gap-3 mb-4 gsap-header-item">
              <span className="px-3 py-1 bg-hacker-green/10 text-hacker-green text-xs font-mono font-bold rounded border border-hacker-green/20">
                {post.category}
              </span>
              <span className="text-xs font-mono text-muted-foreground">{post.date}</span>
            </div>
            
-           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
+           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight gsap-header-item">
              {post.title}
            </h1>
            
-           <p className="text-xl text-muted-foreground leading-relaxed">
+           <p className="text-xl text-muted-foreground leading-relaxed gsap-header-item">
              {post.excerpt}
            </p>
         </div>
@@ -59,7 +122,7 @@ export function BlogContent({ post }: { post: any }) {
             // A. STANDARD TEXT
             if (block.type === "text") {
               return (
-                <p key={index} className="text-lg leading-relaxed text-foreground/90">
+                <p key={index} className="text-lg leading-relaxed text-foreground/90 gsap-fade-up">
                   {block.content}
                 </p>
               );
@@ -69,8 +132,8 @@ export function BlogContent({ post }: { post: any }) {
             if (block.type === "heading") {
                const Tag = block.level === 1 ? 'h2' : 'h3'; 
                const styles = block.level === 1 
-                  ? "text-3xl font-bold mt-16 mb-6 font-mono text-hacker-green"
-                  : "text-2xl font-bold mt-12 mb-4 text-foreground border-l-4 border-hacker-green pl-4";
+                  ? "text-3xl font-bold mt-16 mb-6 font-mono text-hacker-green gsap-fade-up"
+                  : "text-2xl font-bold mt-12 mb-4 text-foreground border-l-4 border-hacker-green pl-4 gsap-fade-up";
                
                return <Tag key={index} className={styles}>{block.content}</Tag>;
             }
@@ -78,7 +141,7 @@ export function BlogContent({ post }: { post: any }) {
             // C. NEW LISTS
             if (block.type === "unordered_list") {
                return (
-                 <ul key={index} className="space-y-3 pl-6 mb-8">
+                 <ul key={index} className="space-y-3 pl-6 mb-8 gsap-list">
                    {block.items.map((item: string, i: number) => (
                       <li key={i} className="flex items-start gap-3 text-lg text-muted-foreground">
                         <span className="w-1.5 h-1.5 rounded-full bg-hacker-green mt-2.5 flex-shrink-0" />
@@ -101,7 +164,7 @@ export function BlogContent({ post }: { post: any }) {
             // E. TIP BOX
             if (block.type === "tip_box") {
               return (
-                <div key={index} className="my-8 p-6 bg-hacker-green/10 border border-hacker-green/20 rounded-xl flex gap-4">
+                <div key={index} className="my-8 p-6 bg-hacker-green/10 border border-hacker-green/20 rounded-xl flex gap-4 gsap-fade-up">
                    <Lightbulb className="w-6 h-6 text-hacker-green flex-shrink-0" />
                    <div>
                      <h4 className="font-bold text-hacker-green font-mono mb-1">{block.title}</h4>
@@ -114,7 +177,7 @@ export function BlogContent({ post }: { post: any }) {
             // F. CUSTOM PRODUCT CARD
             if (block.type === "custom_product_card") {
               return (
-                <div key={index} className="my-16 p-1 rounded-2xl bg-gradient-to-br from-border to-hacker-green/20 relative group">
+                <div key={index} className="my-16 p-1 rounded-2xl bg-gradient-to-br from-border to-hacker-green/20 relative group gsap-product-card">
                   <div className="bg-card rounded-xl p-6 md:p-8 border border-border h-full relative overflow-hidden">
                     
                     <div className="absolute top-0 right-0 w-64 h-64 bg-hacker-green/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
