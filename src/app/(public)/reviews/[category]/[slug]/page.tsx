@@ -22,8 +22,12 @@ export default async function ProductPage({ params }: Props) {
   if (!product) return notFound();
 
   // CALCULATIONS
-  const filler = product.specs.servingSize - product.specs.activeIngredientAmount;
-  const proteinPurity = ((product.specs.activeIngredientAmount / product.specs.servingSize) * 100).toFixed(1);
+  const activeAmount = typeof product.specs.activeIngredientAmount === 'string' 
+    ? parseFloat(product.specs.activeIngredientAmount) || 0 
+    : product.specs.activeIngredientAmount;
+
+  const filler = product.specs.servingSize - activeAmount;
+  const proteinPurity = ((activeAmount / product.specs.servingSize) * 100).toFixed(1);
   const isHighPurity = Number(proteinPurity) > 75;
 
   // 👇 EXTRACT AFFILIATE LINK (Fallback to #)

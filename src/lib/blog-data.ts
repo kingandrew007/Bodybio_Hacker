@@ -1,6 +1,7 @@
 import { PREWORKOUT_BLOG_CONTENT } from "@/lib/preworkout-data";
 import { WHEY_BLOG_CONTENT } from "./whey-data";
 import { VITAMIN_D3_BLOG_CONTENT } from "./vitamin-data";
+import { OMEGA3_BLOG_CONTENT } from "./omega3-data";
 
 export const BLOG_POSTS = [
   {
@@ -148,23 +149,12 @@ export const BLOG_POSTS = [
     ]
   },
   {
-    slug: "best-omega-3-for-brain-fog",
-    title: "The Only 3 Fish Oils That Actually Work for Focus",
-    category: "DEEP_DIVE",
-    date: "2024-01-02",
-    image: "/images/blog/omega3/omega-brain.webp",
-    excerpt: "Most cheap fish oils are rancid. If you want cognitive benefits, you need high EPA. Here is the list.",
-    content: [
-      {
-        type: "text",
-        content: "Brain fog often comes from inflammation. To combat this, you need a high concentration of EPA. Standard grocery store brands simply don't have the dosage required."
-      },
-      {
-        type: "product_highlight",
-        productId: "nordic-naturals-omega",
-        rank: 1,
-        reason: "The Gold Standard. Triglyceride form means you absorb 70% more."
-      }
-    ]
+    slug: "omega-3-complete-guide-india-2026",
+    title: "Omega 3: Benefits, Dosage, Strengths & Best Omega 3 Supplements in India",
+    category: "GUIDE",
+    date: "2026-01-10",
+    image: "/images/blog/omega3/omega-3-cover.png",
+    excerpt: "Omega 3 is one of the most important yet under-consumed nutrients in India. Learn what Omega 3 is, why supplementation is needed, proper dosage, and the best Omega 3 supplements for gym-goers and overall health.",
+    content: OMEGA3_BLOG_CONTENT
   }
 ];

@@ -82,11 +82,21 @@ export function CompareClient() {
             <tr>
               <td className="p-4 font-bold border border-border bg-card sticky left-0 z-10 text-blue-500">PROTEIN PURITY %</td>
               {products.map(p => {
-                const purity = ((p.specs.activeIngredientAmount / p.specs.servingSize) * 100).toFixed(1);
+                const amount = p.specs.activeIngredientAmount;
+                const serving = p.specs.servingSize;
+                
+                let purity = "N/A";
+                let showPercent = false;
+
+                if (typeof amount === 'number' && typeof serving === 'number') {
+                   purity = ((amount / serving) * 100).toFixed(1);
+                   showPercent = true;
+                }
+
                 return (
                   <td key={p._id} className="p-4 border border-border text-center">
-                    <div className="text-lg font-bold">{purity}%</div>
-                    <div className="text-[10px] text-muted-foreground">of powder is actual protein</div>
+                    <div className="text-lg font-bold">{purity}{showPercent && '%'}</div>
+                    <div className="text-[10px] text-muted-foreground">{showPercent ? 'of powder is actual protein' : 'Not applicable'}</div>
                   </td>
                 )
               })}
