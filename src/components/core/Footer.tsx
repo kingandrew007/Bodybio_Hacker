@@ -47,14 +47,14 @@ export function Footer() {
           </div>
 
           {/* Column 3: Company */}
-         <div className="space-y-6">
+          <div className="space-y-6">
           <h3 className="font-mono text-sm text-gray-500 uppercase tracking-widest">Intel</h3>
           <ul className="space-y-4 text-sm font-medium text-gray-300">
             <FooterLink href="/about">Manifesto</FooterLink>
             <FooterLink href="/methodology">Lab Methodology</FooterLink>
-            {/* <FooterLink href="/careers">Join the Team</FooterLink> */} 
-            {/* <FooterLink href="/contact">Encrypted Contact</FooterLink> */}
-            <li className="text-gray-600 cursor-not-allowed">Encrypted Contact (Offline)</li>
+            <FooterLink href="/contact">Encrypted Contact</FooterLink>
+            <FooterLink href="/affiliate-disclosure">Funding Protocol</FooterLink>
+            <FooterLink href="/privacy-policy">Privacy Log</FooterLink>
           </ul>
         </div>
 

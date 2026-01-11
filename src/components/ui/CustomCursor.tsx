@@ -86,12 +86,36 @@ export function CustomCursor() {
   useEffect(() => {
     // Scale animation on hover
     if (followerRef.current) {
+        const brackets = followerRef.current.querySelectorAll(".cursor-bracket");
+        
+        // 1. Circle Animation (Subtle expand, distinct color)
         gsap.to(followerRef.current, {
-            scale: isHovering ? 2.5 : 1,
-            backgroundColor: isHovering ? "rgba(0, 255, 65, 0.1)" : "transparent",
-            borderColor: isHovering ? "rgba(0, 255, 65, 0.5)" : "rgba(0, 255, 65, 0.3)",
-            duration: 0.3
+            scale: isHovering ? 1.5 : 1, // Reduced/Increased from 2.5 to 1.5 for tightness
+            overwrite: "auto",
+            duration: 0.3,
+            ease: "back.out(1.7)"
         });
+
+        // 2. SVG Circle Opacity (Fade out circle track on hover to focus on brackets)
+        const svgCircle = followerRef.current.querySelector("svg");
+        if (svgCircle) {
+           gsap.to(svgCircle, {
+             opacity: isHovering ? 0 : 1,
+             scale: isHovering ? 0.5 : 1,
+             duration: 0.3
+           });
+        }
+
+        // 3. Brackets Animation (Fade in & Snap)
+        if (brackets.length > 0) {
+            gsap.to(brackets, {
+                opacity: isHovering ? 1 : 0,
+                scale: isHovering ? 1 : 0.5,
+                rotation: isHovering ? 0 : 45,
+                duration: 0.3,
+                ease: "back.out(1.7)"
+            });
+        }
     }
   }, [isHovering]);
 
@@ -113,14 +137,14 @@ export function CustomCursor() {
         ref={followerRef}
         className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 z-40 flex items-center justify-center w-12 h-12"
       >
-        {/* SVG Progress Circle */}
+        {/* SVG Progress Circle (Fades out on Hover) */}
         <svg 
-            className="w-full h-full -rotate-90 absolute inset-0" 
+            className="w-full h-full -rotate-90 absolute inset-0 transition-opacity" 
             viewBox="0 0 40 40"
         >
             {/* Background Track */}
             <circle 
-                className="text-hacker-green/10"
+                className="text-hacker-green/20"
                 strokeWidth="1.5"
                 stroke="currentColor"
                 fill="transparent"
@@ -143,6 +167,18 @@ export function CustomCursor() {
                 cy="20"
             />
         </svg>
+
+        {/* Hover Brackets (Visible only on hover) */}
+        <div className="absolute inset-0 flex items-center justify-center">
+            {/* Top-Left */}
+            <div className="cursor-bracket absolute top-2 left-2 w-2 h-2 border-t-2 border-l-2 border-hacker-green opacity-0" />
+            {/* Top-Right */}
+            <div className="cursor-bracket absolute top-2 right-2 w-2 h-2 border-t-2 border-r-2 border-hacker-green opacity-0" />
+            {/* Bottom-Left */}
+            <div className="cursor-bracket absolute bottom-2 left-2 w-2 h-2 border-b-2 border-l-2 border-hacker-green opacity-0" />
+            {/* Bottom-Right */}
+            <div className="cursor-bracket absolute bottom-2 right-2 w-2 h-2 border-b-2 border-r-2 border-hacker-green opacity-0" />
+        </div>
 
         {/* Inner glow */}
          <div className="absolute inset-0 bg-hacker-green/5 rounded-full blur-md" />

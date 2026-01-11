@@ -4,61 +4,44 @@
 // import { Product } from "@/lib/models";
 import { PRODUCTS } from "@/lib/static-data"; // <--- NEW STATIC IMPORT
 
+import Fuse from "fuse.js";
+
 export async function getShopProducts(searchParams: { [key: string]: string | undefined }) {
   
-  /* ----------------------------------------------------
-     DATABASE MODE (DISABLED FOR NOW)
-  
-  await connectDB();
-  const category = searchParams.category || "all";
-  const sortBy = searchParams.sort || "newest";
-
-  const filter: any = { published: true };
-  if (category !== "all") filter.category = new RegExp(category, "i");
-
-  let sortOption: any = { createdAt: -1 };
-  // ... sort logic ...
-  const products = await Product.find(filter).sort(sortOption).lean();
-  return JSON.parse(JSON.stringify(products));
-  ---------------------------------------------------- */
-
-
   // --- STATIC MODE (ACTIVE) ---
   const category = searchParams.category || "all";
   const sortBy = searchParams.sort || "newest";
-  console.log("DEBUG: Shop Filter Params:", { category, sortBy });
 
-  // 1. Filter Manual Data
+  // 1. Hard Filters (Category, Brand, Price)
   let filtered = PRODUCTS.filter(p => {
-    // 1. Category Filter
-    if (category !== "all" && p.category.toLowerCase() !== category.toLowerCase()) {
-      console.log(`DEBUG: Excluded ${p.name} (Category: ${p.category} != ${category})`);
-      return false;
-    }
+    // Category
+    if (category !== "all" && p.category.toLowerCase() !== category.toLowerCase()) return false;
+    
+    // Brand
+    if (searchParams.brand && p.brand.toLowerCase() !== searchParams.brand.toLowerCase()) return false;
 
-    // 2. Brand Filter
-    const brandParam = searchParams.brand;
-    if (brandParam && p.brand.toLowerCase() !== brandParam.toLowerCase()) {
-      return false;
-    }
-
-    // 4. Price Filter
+    // Price
     const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice) : 0;
     const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice) : Infinity;
-    if (p.pricing.current_price < minPrice || p.pricing.current_price > maxPrice) {
-      return false;
-    }
-
-    // 5. Search Query (Name)
-    const query = searchParams.q;
-    if (query && !p.name.toLowerCase().includes(query.toLowerCase())) {
-      return false;
-    }
+    if (p.pricing.current_price < minPrice || p.pricing.current_price > maxPrice) return false;
 
     return true;
   });
 
-  // 2. Sort Manual Data
+  // 2. Fuzzy Search (if query exists)
+  const query = searchParams.q;
+  if (query) {
+    const fuse = new Fuse(filtered, {
+      keys: ["name", "brand", "tags", "description"], // Search these fields
+      threshold: 0.4, // 0.0 = perfect match, 1.0 = match anything. 0.4 is good for typos.
+      includeScore: true
+    });
+
+    const results = fuse.search(query);
+    filtered = results.map(result => result.item);
+  }
+
+  // 3. Sort
   filtered.sort((a, b) => {
     switch (sortBy) {
       case "price_low": return a.pricing.current_price - b.pricing.current_price;
