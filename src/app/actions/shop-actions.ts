@@ -26,11 +26,13 @@ export async function getShopProducts(searchParams: { [key: string]: string | un
   // --- STATIC MODE (ACTIVE) ---
   const category = searchParams.category || "all";
   const sortBy = searchParams.sort || "newest";
+  console.log("DEBUG: Shop Filter Params:", { category, sortBy });
 
   // 1. Filter Manual Data
   let filtered = PRODUCTS.filter(p => {
     // 1. Category Filter
     if (category !== "all" && p.category.toLowerCase() !== category.toLowerCase()) {
+      console.log(`DEBUG: Excluded ${p.name} (Category: ${p.category} != ${category})`);
       return false;
     }
 

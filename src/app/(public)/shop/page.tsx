@@ -162,9 +162,9 @@ function ProductCard({ product }: { product: any }) {
            </div>
            
            <a href={buyLink} target="_blank" rel="noopener noreferrer">
-             <Button size="sm" className="h-8 px-3 md:px-4 bg-hacker-green text-black font-bold text-[10px] md:text-xs hover:bg-white border-0 shadow-sm">
+             <span className="inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-hacker-green disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none h-8 px-3 md:px-4 bg-hacker-green text-black font-bold text-[10px] md:text-xs hover:bg-white border-0 shadow-sm">
                 BUY
-             </Button>
+             </span>
            </a>
         </div>
       </div>

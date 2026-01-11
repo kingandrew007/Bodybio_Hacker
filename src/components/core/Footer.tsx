@@ -89,12 +89,17 @@ export function Footer() {
 }
 
 function VisitorCounter() {
+
+
+  const [mounted, setMounted] = useState(false);
   const [liveCount, setLiveCount] = useState(142);
   const [totalVisits, setTotalVisits] = useState(14205);
 
   useEffect(() => {
+    setMounted(true);
     // 1. Live fluctuation
     const interval = setInterval(() => {
+// ... existing logic ...
       setLiveCount(prev => {
         const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
         return Math.max(120, Math.min(180, prev + change));
@@ -110,6 +115,8 @@ function VisitorCounter() {
 
     return () => clearInterval(interval);
   }, []);
+
+  if (!mounted) return null; // Prevent hydration mismatch
 
   return (
     <div className="flex items-center gap-6 mt-4 p-3 bg-white/5 rounded border border-white/10 w-fit">

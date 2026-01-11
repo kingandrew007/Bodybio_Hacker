@@ -194,12 +194,14 @@ export function BlogContent({ post }: { post: any }) {
                         </div>
                         <div className="flex flex-col items-end gap-2">
                            <div className="text-2xl font-bold font-mono text-foreground">
-                             {block.price ? `₹${block.price.toLocaleString('en-IN')}` : 'Check Price'}
+                             {typeof block.price === "number" 
+                               ? `₹${block.price.toLocaleString('en-IN')}` 
+                               : block.price ? `₹${block.price}` : 'Check Price'}
                            </div>
                            <a href={block.link} target="_blank" rel="noopener noreferrer">
-                              <Button className="bg-hacker-green text-black hover:bg-white font-bold transition-all shadow-lg hover:shadow-hacker-green/20">
+                              <span className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-8 py-2 bg-hacker-green text-black hover:bg-white font-bold shadow-lg hover:shadow-hacker-green/20 cursor-pointer">
                                 <ShoppingCart className="w-4 h-4 mr-2" /> Check Price
-                              </Button>
+                              </span>
                            </a>
                         </div>
                      </div>
