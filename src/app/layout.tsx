@@ -6,6 +6,7 @@ import { Navbar } from '@/components/core/Navbar';
 import { Footer } from '@/components/core/Footer';
 import { Toaster } from "@/components/ui/Toaster";
 import { CompareTray } from "@/components/features/CompareTray"; 
+import { CustomCursor } from "@/components/ui/CustomCursor";
 import './globals.css';
 
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' });
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <AuthProvider>
             <CompareProvider>
+              <CustomCursor />
               <Navbar />
               <main className="flex-grow pt-16">
                 {children}

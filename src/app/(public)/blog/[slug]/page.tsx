@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { BLOG_POSTS } from "@/lib/blog-data";
-import { BlogContent } from "@/components/blog/BlogContent";
+import { BlogContent } from "@/components/blog";
 
 // 1. Fetch Post Data
 async function getPost(slug: string) {

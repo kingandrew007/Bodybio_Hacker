@@ -46,6 +46,12 @@ export const BLOG_POSTS = [
         type: "text",
         content: "If you’re serious about fitness and muscle gains, choosing the right whey protein is a game changer. With tons of options flooding the Indian market, it’s easy to get overwhelmed. That’s why I’ve hand-picked the Top 5 Whey Protein Brands in India that deliver quality, taste, and results — all backed by solid nutrition profiles and real user trust."
       },
+
+      {
+        type: "story_qa",
+        question: "Why do prices vary so much between brands?",
+        answer: "It often comes down to the SOURCE of the whey. Premium brands use imported raw whey (often from the US or Europe) which has stricter quality controls, while budget brands might source locally or use more fillers to cut costs. We've balanced this list to show you where it's worth paying extra and where you can save."
+      },
       
       // 🥇 1. MuscleBlaze
       {
