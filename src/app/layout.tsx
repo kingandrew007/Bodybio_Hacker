@@ -66,9 +66,10 @@ export const metadata = {
     description: 'We tested 50+ supplement brands. See the lab reports. No influencers, just data.',
     images: ['/og-image.jpg'],
   },
-  // icons: {
-  //   icon: '/favicon.ico',
-  // },
+  icons: {
+    icon: '/icon',
+    apple: '/icon',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
