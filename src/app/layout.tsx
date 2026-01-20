@@ -67,9 +67,9 @@ export const metadata = {
     images: ['/og-image.jpg'],
   },
   icons: {
-    icon: '/images/logo/bodybiologo.jpeg',
-    apple: '/images/logo/bodybiologo.jpeg',
-    shortcut: '/images/logo/bodybiologo.jpeg',
+    icon: '/images/logo/bodybiologo.jpeg?v=2',
+    apple: '/images/logo/bodybiologo.jpeg?v=2',
+    shortcut: '/images/logo/bodybiologo.jpeg?v=2',
   },
 };
 
