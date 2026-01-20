@@ -2,12 +2,14 @@ import { PREWORKOUT_SHOP_LIST } from "./preworkout-data";
 import { WHEY_SHOP_LIST } from "./whey-data";
 import { VITAMINS_SHOP_LIST } from "./vitamin-data";
 import { OMEGA3_SHOP_LIST } from "./omega3-data";
+import { CREATINE_SHOP_LIST } from "./creatine-data";
 
 export const PRODUCTS = [
   ...PREWORKOUT_SHOP_LIST,
   ...WHEY_SHOP_LIST,
   ...VITAMINS_SHOP_LIST,
   ...OMEGA3_SHOP_LIST,
+  ...CREATINE_SHOP_LIST,
   // Existing products below...eBlaze
   {
     _id: "101",

@@ -2,8 +2,19 @@ import { PREWORKOUT_BLOG_CONTENT } from "@/lib/preworkout-data";
 import { WHEY_BLOG_CONTENT } from "./whey-data";
 import { VITAMIN_D3_BLOG_CONTENT } from "./vitamin-data";
 import { OMEGA3_BLOG_CONTENT } from "./omega3-data";
+import { CREATINE_BLOG_CONTENT } from "./creatine-data";
 
 export const BLOG_POSTS = [
+  {
+    slug: "creatine-complete-guide-india-2026",
+    title: "Creatine: Benefits, Dosage, Myths & Best Creatine Supplements in India",
+    category: "GUIDE",
+    date: "2026-01-15",
+    image: "/images/blog/creatine/creatine-cover_cyberpunk.svg",
+    excerpt:
+      "Creatine is the most researched and effective muscle-building supplement in the world. Learn what creatine is, how it works, correct dosage, loading myths, safety facts, brain benefits, FAQs, and the best creatine supplements in India.",
+    content: CREATINE_BLOG_CONTENT
+  },
   {
     slug: "vitamin-d3-complete-guide-india-2025",
     title: "Vitamin D3: Complete Guide for Indians (2025)",

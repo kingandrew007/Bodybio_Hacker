@@ -73,14 +73,21 @@ export default async function ShopPage({ searchParams }: Props) {
                 ))}
              </ShopSection>
 
-             {/* SECTION 3: VITAMINS */}
+             {/* SECTION 3: CREATINE */}
+             <ShopSection title="CREATINE_MONSTER" link="/shop?category=creatine">
+                {PRODUCTS.filter(p => p.category === 'creatine').slice(0, 4).map(p => (
+                   <ProductCard key={p._id} product={p} />
+                ))}
+             </ShopSection>
+
+             {/* SECTION 4: VITAMINS */}
              <ShopSection title="VITAMINS" link="/shop?category=vitamins">
                 {PRODUCTS.filter(p => p.category === 'vitamins').slice(0, 4).map(p => (
                    <ProductCard key={p._id} product={p} />
                 ))}
              </ShopSection>
 
-             {/* SECTION 4: OMEGA 3 */}
+             {/* SECTION 5: OMEGA 3 */}
              <ShopSection title="OMEGA_3" link="/shop?category=omega-3">
                 {PRODUCTS.filter(p => p.category === 'omega-3').slice(0, 4).map(p => (
                    <ProductCard key={p._id} product={p} />
