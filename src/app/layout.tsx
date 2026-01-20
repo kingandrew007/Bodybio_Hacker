@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/Toaster";
 import { CompareTray } from "@/components/features/CompareTray"; 
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import './globals.css';
+import Script from 'next/script';
 
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' });
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
@@ -85,7 +86,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </CompareProvider>
           </AuthProvider>
         </Providers>
-        
+        <Script 
+  src="http://localhost:3000/qct.js" 
+  data-apikey="qct_MC44MjMzNTk2NTg4" 
+  data-endpoint="http://localhost:3000/api/analytics/collect"
+  async 
+  defer
+/>
         {/* STRUCTURAL DATA FOR SEO */}
         <script
           type="application/ld+json"

@@ -232,7 +232,13 @@ export const OMEGA3_SHOP_LIST = [
     specs: { activeIngredientAmount: 1250, servingSize: 1, form: "Softgel", totalServings: 60 },
     extended_specs: {
       type: "Non-Veg",
-      strength: "Triple Strength"
+      strength: "Triple Strength",
+      bcaa: "N/A",
+      sweetener: "N/A",
+      filtration: "Molecularly Distilled",
+      certifications: ["FSSAI", "GMP"],
+      carbs: "0g",
+      sugar: "0g"
     },
     description: "Triple strength Omega 3 with high EPA + DHA per capsule. Ideal for gym-goers.",
     affiliates: [{ link: "https://www.amazon.in/YouWeFit-Omega-3-Capsules-1250mg-Strength/dp/B0CS6VKT28", vendor: "Amazon" }]
@@ -249,7 +255,13 @@ export const OMEGA3_SHOP_LIST = [
     specs: { activeIngredientAmount: 1000, servingSize: 1, form: "Softgel", totalServings: 60 },
     extended_specs: {
       type: "Non-Veg",
-      strength: "Double Strength"
+      strength: "Double Strength",
+      bcaa: "N/A",
+      sweetener: "N/A",
+      filtration: "Molecularly Distilled",
+      certifications: ["Labdoor"],
+      carbs: "0g",
+      sugar: "0g"
     },
     description: "Trusted Indian brand with balanced EPA + DHA. Good value for money.",
     affiliates: [{ link: "https://www.amazon.in/MuscleBlaze-Omega-560mg-400mg-capsules/dp/B08KZTVPC6", vendor: "Amazon" }]
@@ -266,7 +278,13 @@ export const OMEGA3_SHOP_LIST = [
     specs: { activeIngredientAmount: 500, servingSize: 1, form: "Capsule", totalServings: 60 },
     extended_specs: {
       type: "Veg (Algae-based)",
-      strength: "Standard"
+      strength: "Standard",
+      bcaa: "N/A",
+      sweetener: "N/A",
+      filtration: "Cold Pressed",
+      certifications: ["Vegan Certified"],
+      carbs: "0g",
+      sugar: "0g"
     },
     description: "100% vegan Omega 3 derived from Algae. The best vegetarian option.",
     affiliates: [{ link: "https://www.amazon.in/Unived-Ovegha-Omega-3-Unflavoured-Capsules/dp/B00HH5GECE", vendor: "Amazon" }]
@@ -283,7 +301,13 @@ export const OMEGA3_SHOP_LIST = [
     specs: { activeIngredientAmount: 1050, servingSize: 1, form: "Softgel", totalServings: 60 },
     extended_specs: {
       type: "Non-Veg",
-      strength: "Triple Strength"
+      strength: "Triple Strength",
+      bcaa: "N/A",
+      sweetener: "N/A",
+      filtration: "Slow Release Beads",
+      certifications: ["FSSAI"],
+      carbs: "0g",
+      sugar: "0g"
     },
     description: "3x strength Omega 3 with slow-release technology. Easy on digestion.",
     affiliates: [{ link: "https://www.amazon.in/Wellbeing-Nutrition-Curcumin-Advanced-Strength/dp/B09WF1J8T4", vendor: "Amazon" }]
@@ -300,7 +324,13 @@ export const OMEGA3_SHOP_LIST = [
     specs: { activeIngredientAmount: 1000, servingSize: 1, form: "Softgel", totalServings: 60 },
     extended_specs: {
       type: "Non-Veg",
-      strength: "Triple Strength"
+      strength: "Triple Strength",
+      bcaa: "N/A",
+      sweetener: "N/A",
+      filtration: "Molecularly Distilled",
+      certifications: ["Lab Tested"],
+      carbs: "0g",
+      sugar: "0g"
     },
     description: "Triple strength formula with high EPA + DHA. Designed for serious lifters.",
     affiliates: [{ link: "https://www.amazon.in/Muscle-Nectar-Triple-Strength-2500mg/dp/B0B63B6Y9C", vendor: "Amazon" }]

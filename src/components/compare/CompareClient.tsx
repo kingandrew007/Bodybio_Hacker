@@ -7,6 +7,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { X, Check, Minus, AlertTriangle, ShieldCheck, Zap } from "lucide-react";
 
+interface ExtendedSpecs {
+  bcaa?: string;
+  sweetener?: string;
+  filtration?: string;
+  certifications?: string[];
+  carbs?: string;
+  sugar?: string;
+  type?: string;
+  strength?: string;
+  [key: string]: any;
+}
+
 export function CompareClient() {
   const { items, removeFromCompare } = useCompare();
 
@@ -120,30 +132,39 @@ export function CompareClient() {
 
             <tr>
               <td className="p-4 font-bold border border-border bg-card sticky left-0 z-10">SWEETENER</td>
-              {products.map(p => (
-                <td key={p._id} className="p-4 border border-border text-center text-xs">
-                   {p.extended_specs?.sweetener || "N/A"}
-                   {p.extended_specs?.sweetener?.includes("Aspartame") && <AlertTriangle className="inline w-3 h-3 text-red-500 ml-1" />}
-                </td>
-              ))}
+               {products.map(p => {
+                 const specs = p.extended_specs as ExtendedSpecs;
+                 return (
+                  <td key={p._id} className="p-4 border border-border text-center text-xs">
+                     {specs?.sweetener || "N/A"}
+                     {specs?.sweetener?.includes("Aspartame") && <AlertTriangle className="inline w-3 h-3 text-red-500 ml-1" />}
+                  </td>
+                 );
+               })}
             </tr>
 
             <tr>
               <td className="p-4 font-bold border border-border bg-card sticky left-0 z-10">FILTRATION</td>
-              {products.map(p => (
-                <td key={p._id} className="p-4 border border-border text-center text-xs">
-                   {p.extended_specs?.filtration || "N/A"}
-                </td>
-              ))}
+               {products.map(p => {
+                 const specs = p.extended_specs as ExtendedSpecs;
+                 return (
+                  <td key={p._id} className="p-4 border border-border text-center text-xs">
+                     {specs?.filtration || "N/A"}
+                  </td>
+                 );
+               })}
             </tr>
 
             <tr>
               <td className="p-4 font-bold border border-border bg-card sticky left-0 z-10">BCAA PROFILE</td>
-              {products.map(p => (
-                <td key={p._id} className="p-4 border border-border text-center text-xs">
-                   {p.extended_specs?.bcaa || "N/A"}
-                </td>
-              ))}
+               {products.map(p => {
+                 const specs = p.extended_specs as ExtendedSpecs;
+                 return (
+                  <td key={p._id} className="p-4 border border-border text-center text-xs">
+                     {specs?.bcaa || "N/A"}
+                  </td>
+                 );
+               })}
             </tr>
 
             {/* --- SECTION 3: TRUST FACTOR --- */}
@@ -151,17 +172,20 @@ export function CompareClient() {
 
             <tr>
               <td className="p-4 font-bold border border-border bg-card sticky left-0 z-10">CERTIFICATIONS</td>
-              {products.map(p => (
-                <td key={p._id} className="p-4 border border-border text-center">
-                   <div className="flex flex-wrap justify-center gap-1">
-                     {p.extended_specs?.certifications?.map((cert: string, i: number) => (
-                       <span key={i} className="px-2 py-0.5 bg-green-500/10 text-green-500 rounded text-[10px] border border-green-500/20">
-                         {cert}
-                       </span>
-                     )) || "-"}
-                   </div>
-                </td>
-              ))}
+               {products.map(p => {
+                 const specs = p.extended_specs as ExtendedSpecs;
+                 return (
+                  <td key={p._id} className="p-4 border border-border text-center">
+                     <div className="flex flex-wrap justify-center gap-1">
+                       {specs?.certifications?.map((cert: string, i: number) => (
+                         <span key={i} className="px-2 py-0.5 bg-green-500/10 text-green-500 rounded text-[10px] border border-green-500/20">
+                           {cert}
+                         </span>
+                       )) || "-"}
+                     </div>
+                  </td>
+                 );
+               })}
             </tr>
 
             <tr>
