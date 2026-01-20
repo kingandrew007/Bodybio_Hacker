@@ -154,10 +154,31 @@ export const CREATINE_BLOG_CONTENT = [
     content: "❓ Creatine FAQ"
   },
   {
-    type: "text",
-    content:
-      "• Do I need to cycle creatine? No, creatine does not require cycling.\n• Does creatine cause water retention? Yes, but inside muscles (intramuscular), which improves strength and size.\n• Can I take creatine with caffeine? Yes. No real-world evidence shows interference.\n• Is creatine safe long-term? Yes, studies up to 5+ years show safety in healthy individuals.\n• Do I need more water? Stay normally hydrated; no excessive water intake is required."
+    type: "story_qa",
+    question: "Do I need to cycle creatine?",
+    answer: "No, creatine does not require cycling. You can take it year-round without any negative effects on your body's natural production."
   },
+  {
+    type: "story_qa",
+    question: "Does creatine cause water retention?",
+    answer: "Yes, but inside muscles (intramuscular water retention), which is a GOOD thing. It improves muscle volume, hydration, and visible size. It does not cause subcutaneous (under the skin) bloating."
+  },
+  {
+    type: "story_qa",
+    question: "Can I take creatine with caffeine?",
+    answer: "Yes. There is no real-world evidence that caffeine cancels out creatine's benefits. Many pre-workouts contain both successfully."
+  },
+  {
+    type: "story_qa",
+    question: "Is creatine safe long-term?",
+    answer: "Yes. Studies spanning 5+ years have shown no adverse effects in healthy individuals. It is one of the safest supplements available."
+  },
+  {
+    type: "story_qa",
+    question: "Do I need to drink excessive water?",
+    answer: "Just stay normally hydrated using thirst as your guide. There is no need to drink gallons of water just because you are taking creatine."
+  },
+
 
   {
     type: "heading",
@@ -174,7 +195,7 @@ export const CREATINE_BLOG_CONTENT = [
     price: "949 for 250 g",
     images: ["/images/blog/creatine/Wellcore_creatine.jpg"],
     link:
-      "https://www.amazon.in/Wellcore-Micronised-Monohydrate-Unflavoured-Absorption/dp/B0BX484K3Y",
+      "https://amzn.to/3NCDFKi",
     highlights: [
       "Pure micronised creatine monohydrate",
       "Excellent mixability",
@@ -191,7 +212,7 @@ export const CREATINE_BLOG_CONTENT = [
     price: "849 for 250 g",
     images: ["/images/blog/creatine/Naturaltein_creatine.jpg"],
     link:
-      "https://www.amazon.in/NATURALTEIN-Boost-Creatine-Monohydrate-Powder/dp/B0D7D78TZR",
+      "https://amzn.to/4qX86ct",
     highlights: [
       "Clean & lab-tested",
       "Good solubility",
@@ -208,7 +229,7 @@ export const CREATINE_BLOG_CONTENT = [
     price: "889 for 250 g",
     images: ["/images/blog/creatine/Optimum-nutrition_creatine.jpg"],
     link:
-      "https://www.amazon.in/Optimum-Nutrition-Micronized-Creatine-Powder/dp/B0DBL1T67V",
+      "https://amzn.to/4r2546Y",
     highlights: [
       "Globally trusted brand",
       "Micronized for easy mixing",
@@ -225,7 +246,7 @@ export const CREATINE_BLOG_CONTENT = [
     price: "699 for 319 g",
     images: ["/images/blog/creatine/Beast-life_creatine.jpg"],
     link:
-      "https://www.amazon.in/BeastLife-Micronised-Monohydrate-Absorption-Performance/dp/B0F7L565BP",
+      "https://amzn.to/3YKBvuH",
     highlights: [
       "Excellent price per gram",
       "Micronised formula",
@@ -242,7 +263,7 @@ export const CREATINE_BLOG_CONTENT = [
     price: "999 for 400 g",
     images: ["/images/blog/creatine/Nutrabay_creatine.jpg"],
     link:
-      "https://www.amazon.in/Nutrabay-Micronised-Creatine-Monohydrate-Powder/dp/B0D7H43MW8",
+      "https://amzn.to/45FUNoX",
     highlights: [
       "Large pack size",
       "Budget-friendly per gram",
@@ -279,7 +300,7 @@ export const CREATINE_SHOP_LIST = [
        sugar: "0g"
     },
     description: "Pure micronised creatine monohydrate. Excellent mixability and highly trusted quality for serious gains.",
-    affiliates: [{ link: "https://www.amazon.in/Wellcore-Micronised-Monohydrate-Unflavoured-Absorption/dp/B0BX484K3Y", vendor: "Amazon" }]
+    affiliates: [{ link: "https://amzn.to/3NCDFKi", vendor: "Amazon" }]
   },
   
   // 2. NATURALTEIN
@@ -302,7 +323,7 @@ export const CREATINE_SHOP_LIST = [
        sugar: "0g"
     },
     description: "Clean, lab-tested, and great value for money. Known for good solubility and purity.",
-    affiliates: [{ link: "https://www.amazon.in/NATURALTEIN-Boost-Creatine-Monohydrate-Powder/dp/B0D7D78TZR", vendor: "Amazon" }]
+    affiliates: [{ link: "https://amzn.to/4qX86ct", vendor: "Amazon" }]
   },
 
   // 3. Optimum Nutrition
@@ -325,7 +346,7 @@ export const CREATINE_SHOP_LIST = [
        sugar: "0g"
     },
     description: "The globally trusted brand. Micronized for easy mixing and proven effectiveness over decades.",
-    affiliates: [{ link: "https://www.amazon.in/Optimum-Nutrition-Micronized-Creatine-Powder/dp/B0DBL1T67V", vendor: "Amazon" }]
+    affiliates: [{ link: "https://amzn.to/4r2546Y", vendor: "Amazon" }]
   },
 
   // 4. BeastLife
@@ -348,7 +369,7 @@ export const CREATINE_SHOP_LIST = [
        sugar: "0g"
     },
     description: "Unbeatable price per gram. Excellent choice for beginners or those on a strict budget.",
-    affiliates: [{ link: "https://www.amazon.in/BeastLife-Micronised-Monohydrate-Absorption-Performance/dp/B0F7L565BP", vendor: "Amazon" }]
+    affiliates: [{ link: "https://amzn.to/3YKBvuH", vendor: "Amazon" }]
   },
 
   // 5. Nutrabay
@@ -371,6 +392,6 @@ export const CREATINE_SHOP_LIST = [
        sugar: "0g"
     },
     description: "Large pack size offering a reliable daily use option that is budget-friendly in the long run.",
-    affiliates: [{ link: "https://www.amazon.in/Nutrabay-Micronised-Creatine-Monohydrate-Powder/dp/B0D7H43MW8", vendor: "Amazon" }]
+    affiliates: [{ link: "https://amzn.to/45FUNoX", vendor: "Amazon" }]
   }
 ];
