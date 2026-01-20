@@ -18,17 +18,17 @@ export default function Template({ children }: { children: React.ReactNode }) {
     gsap.set(".scan-line", { top: "0%" });
     gsap.set(".loader-hud", { opacity: 1, scale: 1 });
 
-    // THE SCAN
+    // THE SCAN (0.8s total)
     tl.to(".scan-line", {
       top: "100%",
-      duration: 1.2,
-      ease: "power2.inOut",
-      repeat: 1,
-      yoyo: true
+      duration: 0.8,
+      ease: "power1.inOut",
+      repeat: 0,
+      yoyo: false
     })
-    // 2. Animate the Ref directly (No selector string)
+    // 2. Animate the Ref directly (No selector string) (0.8s)
     .to(textRef.current, {
-      duration: 1,
+      duration: 0.8,
       // 3. Use Arrow Function + Ref (Type Safe)
       onUpdate: () => {
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
@@ -49,22 +49,22 @@ export default function Template({ children }: { children: React.ReactNode }) {
       }
     }, "<")
 
-    // THE SHREDDER REVEAL
+    // THE SHREDDER REVEAL (0.7s)
     .to(".col-odd", {
       yPercent: -100,
-      duration: 0.8,
-      ease: "power4.inOut",
-      stagger: 0.05
+      duration: 0.7,
+      ease: "power3.inOut",
+      stagger: 0.03
     }, "reveal")
     .to(".col-even", {
       yPercent: 100,
-      duration: 0.8,
-      ease: "power4.inOut",
-      stagger: 0.05
+      duration: 0.7,
+      ease: "power3.inOut",
+      stagger: 0.03
     }, "reveal")
 
-    // CLEANUP
-    .to(".loader-hud", { opacity: 0, duration: 0.2 }, "reveal")
+    // CLEANUP (0.3s)
+    .to(".loader-hud", { opacity: 0, duration: 0.3 }, "reveal")
     .set(".transition-overlay", { display: "none" });
 
   }, { scope: container });
