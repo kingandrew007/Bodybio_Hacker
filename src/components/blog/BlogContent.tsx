@@ -106,7 +106,7 @@ export function BlogContent({ post }: { post: any }) {
              <span className="text-xs font-mono text-muted-foreground">{post.date}</span>
            </div>
            
-           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight gsap-header-item">
+           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 leading-tight gsap-header-item">
              {post.title}
            </h1>
            
@@ -192,14 +192,14 @@ export function BlogContent({ post }: { post: any }) {
                              <span className="text-xs text-muted-foreground uppercase tracking-widest">Verified Selection</span>
                            </div>
                         </div>
-                        <div className="flex flex-col items-end gap-2">
+                        <div className="flex flex-col items-start md:items-end gap-2 mt-4 md:mt-0">
                            <div className="text-2xl font-bold font-mono text-foreground">
                              {typeof block.price === "number" 
                                ? `₹${block.price.toLocaleString('en-IN')}` 
                                : block.price ? `₹${block.price}` : 'Check Price'}
                            </div>
-                           <a href={block.link} target="_blank" rel="noopener noreferrer">
-                              <span className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-8 py-2 bg-hacker-green text-black hover:bg-white font-bold shadow-lg hover:shadow-hacker-green/20 cursor-pointer">
+                           <a href={block.link} target="_blank" rel="noopener noreferrer" className="w-full md:w-auto">
+                              <span className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-8 py-2 bg-hacker-green text-black hover:bg-white font-bold shadow-lg hover:shadow-hacker-green/20 cursor-pointer w-full md:w-auto">
                                 <ShoppingCart className="w-4 h-4 mr-2" /> Check Price
                               </span>
                            </a>
@@ -207,7 +207,7 @@ export function BlogContent({ post }: { post: any }) {
                      </div>
  
                      {/* Images Grid with Lightbox */}
-                     <div className="grid grid-cols-2 gap-4 mb-8">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                         {block.images && block.images.map((img: string, i: number) => (
                           <div 
                             key={i} 
