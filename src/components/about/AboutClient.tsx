@@ -234,24 +234,12 @@ export function AboutClient() {
                 <Users className="w-12 h-12 text-hacker-green opacity-50" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex justify-center gap-8">
                <SquadCard 
                  role="FOUNDER // LEAD BIOHACKER"
                  name="Sumukha"
                  desc="Obsessed with human optimization and exposing corporate greed. Runs the central protocol."
                  stats={["Data Analysis", "Nootropics", "Spectrometry"]}
-               />
-               <SquadCard 
-                 role="HEAD OF LAB OPS"
-                 name="Dr. Aris Thorne"
-                 desc="Analytical chemist with 15 years experience in pharmaceutical quality control. The skeptic."
-                 stats={["HPLC Certified", "Heavy Metals", "Organic Chem"]}
-               />
-                <SquadCard 
-                 role="FIELD OPERATIVE"
-                 name="Sarah 'Glitch' Kerrigan"
-                 desc="Acquisition specialist. Ensures samples are procured ethically and anonymously without detection."
-                 stats={["Logistics", "OpSec", "Recon"]}
                />
             </div>
         </div>
