@@ -19,18 +19,21 @@ export const metadata = {
     default: 'BodyBio Hacker | The Truth in Supplements',
     template: '%s | BodyBio Hacker'
   },
-  description: 'The world\'s first analytics-driven supplement database. We lab-test Whey, Omega-3, and Nootropics for heavy metals, amino spiking, and purity.',
+  description: 'Don\'t get scammed. We lab-test Indian supplements for heavy metals, amino spiking, and purity. The world\'s first analytics-driven supplement database.',
   
   // 👇 ADVANCED KEYWORDS
   keywords: [
     // Core Identity
     'biohacking', 'supplement analysis', 'lab tested supplements', 'bodybio hacker', 
     
+    // 🇮🇳 Location Specific (High Volume)
+    'best whey protein india', 'authentic supplements india', 'fake supplement check online', 'protein powder price india',
+    
     // Technical Terms (High Value)
     'amino spiking detection', 'heavy metal testing', 'bioavailability', 'HPLC analysis', 'mass spectrometry',
     
     // Specific Categories
-    'best whey protein india', 'omega 3 purity test', 'nootropics guide', 'creatine monohydrate purity',
+    'best creatine monohydrate india', 'omega 3 purity test', 'pre workout review india', 'multivitamin for indian diet',
     
     // Problem Solving
     'cognitive enhancement', 'muscle recovery protocol', 'gut health optimization', 'clean label supplements',

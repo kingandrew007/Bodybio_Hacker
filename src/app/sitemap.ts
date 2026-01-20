@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: 'daily' as const,
+    changeFrequency: 'weekly' as const,
     priority: route === '' ? 1 : 0.8,
   }));
 
@@ -31,8 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogRoutes = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
   }));
 
   return [...routes, ...productRoutes, ...blogRoutes];
