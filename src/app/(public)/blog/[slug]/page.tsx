@@ -55,11 +55,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+import { JsonLd, generateArticleJsonLd } from "@/components/seo/JsonLd";
+
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPost(slug);
 
   if (!post) return notFound();
 
-  return <BlogContent post={post} />;
+  return (
+    <>
+      <JsonLd data={generateArticleJsonLd(post)} />
+      <BlogContent post={post} />
+    </>
+  );
 }

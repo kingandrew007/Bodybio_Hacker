@@ -11,9 +11,32 @@ async function getProduct(slug: string) {
   return PRODUCTS.find(p => p.slug === slug) || null;
 }
 
+import { Metadata } from 'next';
+import { JsonLd, generateProductJsonLd } from '@/components/seo/JsonLd';
+
 type Props = {
   params: Promise<{ category: string; slug: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
+  if (!product) {
+    return { title: 'Product Not Found | BodyBio Hacker' };
+  }
+
+  return {
+    title: `${product.name} Review - Lab Test & Price | BodyBio Hacker`,
+    description: `Is ${product.name} safe? We lab-tested it. Read our full review of ${product.brand} ${product.category}, covering purity, ingredients, and side effects.`,
+    keywords: [product.name, product.brand, `${product.brand} review`, `${product.name} lab test`, 'supplement review india', product.category],
+    openGraph: {
+      title: `${product.name} Review (Lab Tested)`,
+      description: product.description,
+      images: [product.images.thumbnail],
+    }
+  };
+}
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
@@ -35,6 +58,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <div className="min-h-screen pb-20 bg-background text-foreground transition-colors duration-300 selection:bg-hacker-green selection:text-black">
+      <JsonLd data={generateProductJsonLd(product)} />
       
       {/* 1. HERO SECTION */}
       <section className="pt-32 pb-12 px-6 max-w-7xl mx-auto">

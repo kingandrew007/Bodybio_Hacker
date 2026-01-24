@@ -13,17 +13,38 @@ import { PRODUCTS } from "@/lib/static-data";
 
 // ... existing imports
 
+// ... imports
+import { ChevronLeft, ChevronRight } from "lucide-react"; // Import Icons
+
 export default async function ShopPage({ searchParams }: Props) {
   const params = await searchParams;
-  const products = await getShopProducts(params);
+  const { products, total, totalPages, currentPage } = await getShopProducts(params);
   
-  // Extract Unique Brands
-  const uniqueBrands = Array.from(new Set(PRODUCTS.map(p => p.brand))).sort();
+  // 1. EXTRACT BRANDS (DEPENDENT LOGIC)
+  // Logic: Brands should be based on the SELECTED Category, not just all products.
+  // If a category is selected (e.g., 'whey'), show only brands that have whey products.
+  // We can do this by filtering the static PRODUCTS list.
+  let visibleBrands = [];
+  if (params.category && params.category !== 'all') {
+      const categoryFilter = params.category.toLowerCase();
+      visibleBrands = Array.from(new Set(PRODUCTS
+          .filter(p => p.category.toLowerCase() === categoryFilter)
+          .map(p => p.brand)
+      )).sort();
+  } else {
+      // If no category selected, show all brands
+      visibleBrands = Array.from(new Set(PRODUCTS.map(p => p.brand))).sort();
+  }
+  
+  // Extract Unique Categories (ensure 'all' is first)
+  const uniqueCategories = ["all", ...Array.from(new Set(PRODUCTS.map(p => p.category)))].sort((a,b) => {
+      if (a === 'all') return -1;
+      if (b === 'all') return 1;
+      return a.localeCompare(b);
+  });
 
-  // Check if any filter is active (category, brand, price, rating)
-  // Note: 'sort' doesn't count as a filter that hides sections, but let's say if user sorts, they probably want a list.
-  // Actually, usually "Shop" landing page shows sections, but if I search/filter, I see grid.
-  const isFiltered = params.category || params.brand || params.minPrice || params.maxPrice || params.rating || params.q || (params.sort && params.sort !== 'newest');
+  // Check if any filter is active
+  const isFiltered = params.category || params.brand || params.minPrice || params.maxPrice || params.rating || params.q || (params.sort && params.sort !== 'newest') || params.page;
 
   return (
     <div className="min-h-screen bg-background text-foreground pt-24 pb-20 px-4 md:px-6 transition-colors duration-300">
@@ -38,23 +59,48 @@ export default async function ShopPage({ searchParams }: Props) {
           </p>
         </div>
 
-        <ShopToolbar brands={uniqueBrands} />
+        <ShopToolbar brands={visibleBrands} categories={uniqueCategories} />
 
-        {/* CONDITION: If Filtered -> Show Grid. If Default -> Show Sections */}
+        {/* CONDITION: If Filtered -> Show Grid (Pagination). If Default -> Show Sections */}
         {isFiltered ? (
-           <div 
-             key={JSON.stringify(params)} 
-             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8 animate-appear"
-           >
-             {products.map((product: any) => (
-               <ProductCard key={product._id} product={product} />
-             ))}
+           <div className="space-y-12">
+             <div 
+               key={JSON.stringify(params)} 
+               className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8 animate-appear"
+             >
+               {products.map((product: any) => (
+                 <ProductCard key={product._id} product={product} />
+               ))}
+ 
+               {products.length === 0 && (
+                  <div className="col-span-full py-20 text-center border border-dashed border-border rounded-xl">
+                    <div className="text-hacker-green font-mono text-xl animate-pulse">NO_ASSETS_FOUND</div>
+                    <p className="text-muted-foreground mt-2">Adjust your filters to locate supplies.</p>
+                  </div>
+               )}
+             </div>
 
-             {products.length === 0 && (
-                <div className="col-span-full py-20 text-center border border-dashed border-border rounded-xl">
-                  <div className="text-hacker-green font-mono text-xl animate-pulse">NO_ASSETS_FOUND</div>
-                  <p className="text-muted-foreground mt-2">Adjust your filters to locate supplies.</p>
-                </div>
+             {/* PAGINATION CONTROLS */}
+             {totalPages > 1 && (
+               <div className="flex justify-center items-center gap-4 pt-8 border-t border-border">
+                 <Link 
+                   href={`/shop?${new URLSearchParams({ ...params, page: (currentPage - 1).toString() })}`}
+                   className={`p-2 rounded border border-border hover:border-hacker-green hover:text-hacker-green transition-colors ${currentPage <= 1 ? "pointer-events-none opacity-50" : ""}`}
+                 >
+                   <ChevronLeft className="w-5 h-5" />
+                 </Link>
+                 
+                 <span className="font-mono text-sm text-muted-foreground">
+                   PAGE <span className="text-foreground font-bold">{currentPage}</span> / {totalPages}
+                 </span>
+ 
+                 <Link 
+                   href={`/shop?${new URLSearchParams({ ...params, page: (currentPage + 1).toString() })}`}
+                   className={`p-2 rounded border border-border hover:border-hacker-green hover:text-hacker-green transition-colors ${currentPage >= totalPages ? "pointer-events-none opacity-50" : ""}`}
+                 >
+                   <ChevronRight className="w-5 h-5" />
+                 </Link>
+               </div>
              )}
            </div>
         ) : (
@@ -66,28 +112,35 @@ export default async function ShopPage({ searchParams }: Props) {
                 ))}
              </ShopSection>
 
-             {/* SECTION 2: PRE-WORKOUT */}
+             {/* SECTION 2: PROTEIN SHAKES (NEW) */}
+             <ShopSection title="PROTEIN_SHAKES" link="/shop?category=ready-to-drink">
+                {PRODUCTS.filter(p => p.category === 'ready-to-drink').slice(0, 4).map(p => (
+                   <ProductCard key={p._id} product={p} />
+                ))}
+             </ShopSection>
+
+             {/* SECTION 3: PRE-WORKOUT */}
              <ShopSection title="PRE_WARFARE" link="/shop?category=pre-workout">
                 {PRODUCTS.filter(p => p.category === 'pre-workout').slice(0, 4).map(p => (
                    <ProductCard key={p._id} product={p} />
                 ))}
              </ShopSection>
 
-             {/* SECTION 3: CREATINE */}
+             {/* SECTION 4: CREATINE */}
              <ShopSection title="CREATINE_MONSTER" link="/shop?category=creatine">
                 {PRODUCTS.filter(p => p.category === 'creatine').slice(0, 4).map(p => (
                    <ProductCard key={p._id} product={p} />
                 ))}
              </ShopSection>
 
-             {/* SECTION 4: VITAMINS */}
+             {/* SECTION 5: VITAMINS */}
              <ShopSection title="VITAMINS" link="/shop?category=vitamins">
                 {PRODUCTS.filter(p => p.category === 'vitamins').slice(0, 4).map(p => (
                    <ProductCard key={p._id} product={p} />
                 ))}
              </ShopSection>
 
-             {/* SECTION 5: OMEGA 3 */}
+             {/* SECTION 6: OMEGA 3 */}
              <ShopSection title="OMEGA_3" link="/shop?category=omega-3">
                 {PRODUCTS.filter(p => p.category === 'omega-3').slice(0, 4).map(p => (
                    <ProductCard key={p._id} product={p} />
@@ -116,6 +169,7 @@ function ShopSection({ title, link, children }: any) {
     </section>
   )
 }
+
 
 function ProductCard({ product }: { product: any }) {
   const scoreColor = product.ratings?.overall >= 8 ? "text-hacker-green" : "text-yellow-500";

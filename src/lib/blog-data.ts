@@ -12,6 +12,7 @@ export const BLOG_POSTS = [
     category: "GUIDE",
     date: "2026-01-21",
     image: "/images/blog/proteinshake/protein-drinks-cover.png",
+    productCategory: "ready-to-drink",
     excerpt:
       "Ready-to-drink protein shakes are the most convenient way to hit protein goals when you’re busy, traveling, or don’t want the hassle of mixing whey. Here are the best RTD protein shakes available in India.",
     content: RTD_PROTEIN_BLOG_CONTENT
@@ -22,6 +23,7 @@ export const BLOG_POSTS = [
     category: "GUIDE",
     date: "2026-01-15",
     image: "/images/blog/creatine/creatine-cover_cyberpunk.svg",
+    productCategory: "creatine",
     excerpt:
       "Creatine is the most researched and effective muscle-building supplement in the world. Learn what creatine is, how it works, correct dosage, loading myths, safety facts, brain benefits, FAQs, and the best creatine supplements in India.",
     content: CREATINE_BLOG_CONTENT
@@ -32,6 +34,7 @@ export const BLOG_POSTS = [
     category: "GUIDE",
     date: "2025-01-06",
     image: "/images/blog/vitamins/vitamin-d3-cover.png",
+    productCategory: "vitamins",
     excerpt: "Why most Indians are deficient in Vitamin D3, how much you need, and the best D3 supplements to choose.",
     content: VITAMIN_D3_BLOG_CONTENT
   },
@@ -42,6 +45,7 @@ export const BLOG_POSTS = [
     category: "GUIDE",
     date: "2025-01-02",
     image: "/images/blog/whey/Nakpro_impact.jpg",
+    productCategory: "whey",
     excerpt: "If you want to meet your daily protein requirements and build muscle on a tight budget, these lab-tested whey proteins offer the best protein per rupee in India.",
     content: WHEY_BLOG_CONTENT
   },
@@ -53,6 +57,7 @@ export const BLOG_POSTS = [
     category: "GUIDE",
     date: "2025-01-01",
     image: "/images/blog/preworkout/Gayor3.0.jpg",
+    productCategory: "pre-workout",
     excerpt: "Pre-workout supplements can dramatically boost your energy, focus, and performance — but only if you choose the right one. Here are the Top 5 strongest pre-workouts available in India.",
     content: PREWORKOUT_BLOG_CONTENT
   },
@@ -62,6 +67,7 @@ export const BLOG_POSTS = [
     category: "GUIDE",
     date: "2025-01-01",
     image: "/images/blog/whey/Atom_Whey2.png",
+    productCategory: "whey",
     excerpt: "If you’re serious about fitness, choosing the right whey is a game changer. Here are the top 5 Indian brands delivering quality, taste, and results.",
     content: [
       {
@@ -182,6 +188,7 @@ export const BLOG_POSTS = [
     category: "GUIDE",
     date: "2026-01-10",
     image: "/images/blog/omega3/omega-3-cover.png",
+    productCategory: "omega-3",
     excerpt: "Omega 3 is one of the most important yet under-consumed nutrients in India. Learn what Omega 3 is, why supplementation is needed, proper dosage, and the best Omega 3 supplements for gym-goers and overall health.",
     content: OMEGA3_BLOG_CONTENT
   }

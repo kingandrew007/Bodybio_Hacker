@@ -5,14 +5,19 @@ import { VITAMINS_SHOP_LIST } from "./vitamin-data";
 import { OMEGA3_SHOP_LIST } from "./omega3-data";
 import { CREATINE_SHOP_LIST } from "./creatine-data";
 
-export const PRODUCTS = [
+import { extractProductsFromBlog } from "./sync-utils";
+
+const BLOG_PRODUCTS = extractProductsFromBlog();
+
+const STATIC_PRODUCTS = [
   ...RTD_PROTEIN_SHOP_LIST,
   ...PREWORKOUT_SHOP_LIST,
   ...WHEY_SHOP_LIST,
   ...VITAMINS_SHOP_LIST,
   ...OMEGA3_SHOP_LIST,
   ...CREATINE_SHOP_LIST,
-  // Existing products below...eBlaze
+   // Existing hardcoded products below...
+  // 🥇 1. MuscleBlaze
   {
     _id: "101",
     name: "MuscleBlaze Biozyme Performance",
@@ -137,3 +142,15 @@ export const PRODUCTS = [
     affiliates: [{ link: "https://amzn.to/3MQIcbV", vendor: "Amazon" }]
   }
 ];
+
+// Deduplication: Filter out blog products that already exist in static list assignment
+// We check both slug and name to catch duplicates.
+const NEW_BLOG_PRODUCTS = BLOG_PRODUCTS.filter(bp => {
+  const isDuplicateSlug = STATIC_PRODUCTS.some(sp => sp.slug === bp.slug);
+  const isDuplicateName = STATIC_PRODUCTS.some(sp => 
+    sp.name.toLowerCase().trim() === bp.name.toLowerCase().trim()
+  );
+  return !isDuplicateSlug && !isDuplicateName;
+});
+
+export const PRODUCTS = [...STATIC_PRODUCTS, ...NEW_BLOG_PRODUCTS];

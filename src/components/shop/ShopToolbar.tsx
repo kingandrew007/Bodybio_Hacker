@@ -7,20 +7,10 @@ import { ArrowUpDown, ChevronDown, Check, X, Search } from "lucide-react";
 import { PRODUCTS } from "@/lib/static-data"; // <--- Import Products
 
 // DEFINED CATEGORIES (Add as many as you want here)
-const CATEGORIES = [
-  "all", 
-  "ready-to-drink",
-  "whey", 
-  "omega-3", 
-  "creatine", 
-  "vitamins", 
-  "pre-workout", 
-  "bcaa", 
-  "fat-burners", 
-  "gear"
-];
+export function ShopToolbar({ brands = [], categories = [] }: { brands?: string[]; categories?: string[] }) {
+  // Use passed categories or fallback
+  const displayCategories = categories.length > 0 ? categories : ["all", "whey", "pre-workout", "creatine", "vitamins", "omega-3", "ready-to-drink", "bcaa"];
 
-export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -78,7 +68,7 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
     setShowSuggestions(false);
   };
 
-  const useCategoryDropdown = CATEGORIES.length > 4;
+  const useCategoryDropdown = displayCategories.length > 4;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -137,7 +127,7 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
 
               {openDropdown === "category" && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-xl shadow-xl p-1 z-50 animate-in fade-in slide-in-from-top-2 max-h-60 overflow-y-auto custom-scrollbar">
-                  {CATEGORIES.map((cat) => (
+                  {displayCategories.map((cat) => (
                     <button
                       key={cat}
                       // When switching category, we might want to keep the brand or clear it. Usually clear it to avoid empty results.
@@ -149,7 +139,7 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
                         currentCategory === cat ? "text-hacker-green bg-hacker-green/5 font-bold" : "text-muted-foreground"
                       }`}
                     >
-                      {cat.toUpperCase()}
+                      {cat === 'ready-to-drink' ? 'PROTEIN SHAKES' : cat.toUpperCase()}
                       {currentCategory === cat && <Check className="w-3 h-3" />}
                     </button>
                   ))}
@@ -159,7 +149,7 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
           ) : (
             // MODE B: MOBILE RAIL (Horizontal Scroll)
             <div className="flex overflow-x-auto w-full md:w-auto pb-2 md:pb-0 gap-3 no-scrollbar snap-x snap-mandatory">
-              {CATEGORIES.map((cat) => (
+              {displayCategories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => updateFilter({ category: cat, brand: null })} 
@@ -169,7 +159,7 @@ export function ShopToolbar({ brands = [] }: { brands?: string[] }) {
                       : "bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground"
                     }`}
                 >
-                  {cat}
+                  {cat === 'ready-to-drink' ? 'PROTEIN SHAKES' : cat}
                 </button>
               ))}
             </div>

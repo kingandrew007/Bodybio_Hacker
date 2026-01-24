@@ -28,6 +28,8 @@ export async function getShopProducts(searchParams: { [key: string]: string | un
     return true;
   });
 
+
+
   // 2. Fuzzy Search (if query exists)
   const query = searchParams.q;
   if (query) {
@@ -53,5 +55,14 @@ export async function getShopProducts(searchParams: { [key: string]: string | un
     }
   });
 
-  return filtered;
+  // 4. Pagination
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const limit = 6;
+  const total = filtered.length;
+  const totalPages = Math.ceil(total / limit);
+  const offset = (page - 1) * limit;
+  
+  const paginatedProducts = filtered.slice(offset, offset + limit);
+
+  return { products: paginatedProducts, total, totalPages, currentPage: page };
 }
