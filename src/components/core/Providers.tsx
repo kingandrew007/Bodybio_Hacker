@@ -10,7 +10,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       attribute="class" 
       defaultTheme="dark" 
       enableSystem 
-      disableTransitionOnChange
+      enableSystem
     >
       {/* root: true -> Tells Lenis to hijack the main HTML scroll 
         options -> lerp: 0.1 is the "heaviness" (lower = smoother/slower)
