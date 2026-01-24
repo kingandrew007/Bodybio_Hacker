@@ -1,3 +1,4 @@
+import { RTD_PROTEIN_SHOP_LIST } from "./rtd-protein-shop-data";
 import { PREWORKOUT_SHOP_LIST } from "./preworkout-data";
 import { WHEY_SHOP_LIST } from "./whey-data";
 import { VITAMINS_SHOP_LIST } from "./vitamin-data";
@@ -5,6 +6,7 @@ import { OMEGA3_SHOP_LIST } from "./omega3-data";
 import { CREATINE_SHOP_LIST } from "./creatine-data";
 
 export const PRODUCTS = [
+  ...RTD_PROTEIN_SHOP_LIST,
   ...PREWORKOUT_SHOP_LIST,
   ...WHEY_SHOP_LIST,
   ...VITAMINS_SHOP_LIST,

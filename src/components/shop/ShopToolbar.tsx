@@ -9,6 +9,7 @@ import { PRODUCTS } from "@/lib/static-data"; // <--- Import Products
 // DEFINED CATEGORIES (Add as many as you want here)
 const CATEGORIES = [
   "all", 
+  "ready-to-drink",
   "whey", 
   "omega-3", 
   "creatine", 

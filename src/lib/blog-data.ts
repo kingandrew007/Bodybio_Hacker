@@ -1,3 +1,4 @@
+import { RTD_PROTEIN_BLOG_CONTENT } from "@/lib/rtd-protein-data";
 import { PREWORKOUT_BLOG_CONTENT } from "@/lib/preworkout-data";
 import { WHEY_BLOG_CONTENT } from "./whey-data";
 import { VITAMIN_D3_BLOG_CONTENT } from "./vitamin-data";
@@ -5,6 +6,16 @@ import { OMEGA3_BLOG_CONTENT } from "./omega3-data";
 import { CREATINE_BLOG_CONTENT } from "./creatine-data";
 
 export const BLOG_POSTS = [
+  {
+    slug: "top-5-ready-to-drink-protein-shakes-india-2026",
+    title: "Top 5 Ready-to-Drink Protein Shakes in India (Convenient & Travel-Friendly)",
+    category: "GUIDE",
+    date: "2026-01-21",
+    image: "/images/blog/proteinshake/protein-drinks-cover.png",
+    excerpt:
+      "Ready-to-drink protein shakes are the most convenient way to hit protein goals when you’re busy, traveling, or don’t want the hassle of mixing whey. Here are the best RTD protein shakes available in India.",
+    content: RTD_PROTEIN_BLOG_CONTENT
+  },
   {
     slug: "creatine-complete-guide-india-2026",
     title: "Creatine: Benefits, Dosage, Myths & Best Creatine Supplements in India",
